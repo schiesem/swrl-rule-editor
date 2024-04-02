@@ -1,0 +1,1261 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/testRegeln#"
+     xml:base="http://www.semanticweb.org/testRegeln"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrl2="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/testRegeln">
+        <rdfs:comment>Folgende Regeln sind hier direkt implementiert:
+-SWRL: Direkte Verbindungen (Assignment, Communication, Productflow)
+-SWRL: Hinreichende Bedingung für CLoudFully und EdgeFully (Achtung Individuum von AI System nötig)</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#communicatesWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#communicatesWith">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#composesOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#composesOf">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#isPartOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#flows -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#flows">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#isFlowing"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasAssignment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasAssignment">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#hasComponent"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasAssignmentComponent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasAssignmentComponent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#hasSystemComponentAssignment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasCommunication -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasCommunication">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#hasCommunicationComponent"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#Communication"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasCommunicationComponent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasCommunicationComponent"/>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasComponent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasComponent"/>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasFunction -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasFunction">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#hasSystemFunctionAssignment"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#Assignment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasSystemComponentAssignment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasSystemComponentAssignment">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#Assignment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#hasSystemFunctionAssignment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#hasSystemFunctionAssignment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#isBeingProcessedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#isBeingProcessedWith">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#processes"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#Transform"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#isFlowing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#isFlowing"/>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#isPartOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#isTransformedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#isTransformedBy">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/testRegeln#isTransforming"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#Transform"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#isTransforming -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#isTransforming"/>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#processes -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/testRegeln#processes">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#Transform"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/testRegeln#Product"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#ErfuelltHinreichendeBedingungFuer -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/testRegeln#ErfuelltHinreichendeBedingungFuer">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Actuator -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Actuator">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#AiSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#AiSystem">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#composesOf"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Assignment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Assignment">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemRelation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignmentComponent"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasFunction"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Automate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Automate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#CloudSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#CloudSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Communication -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Communication">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemRelation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasCommunicationComponent"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#ComputerSystem -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#ComputerSystem">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Controller -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Controller">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#EdgeDevice -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#EdgeDevice">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Inference -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Inference">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Process -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Process">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Product -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Product">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#flows"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#ProductFlow -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#ProductFlow">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemRelation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#isFlowing"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#Product"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#isTransformedBy"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#Transform"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Record -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Record">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Sensor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Sensor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Store -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Store">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#SystemComponent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#SystemComponent">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasCommunication"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/testRegeln#Communication"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasSystemComponentAssignment"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/testRegeln#Assignment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#SystemElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#SystemElement">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#isPartOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#SystemFunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#SystemFunction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#hasSystemFunctionAssignment"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#Assignment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#SystemRelation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#SystemRelation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#TechnicalResource -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#TechnicalResource">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Train -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Train">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Transform -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/testRegeln#Transform">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/testRegeln#isTransforming"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Actuator1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/testRegeln#Actuator1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/testRegeln#Actuator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#MyAiSystem -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/testRegeln#MyAiSystem">
+        <rdf:type rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/testRegeln#Sensor2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/testRegeln#Sensor2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/testRegeln#Sensor"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Actuator"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#CloudSystem"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#ComputerSystem"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Controller"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#EdgeDevice"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Sensor"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Assignment"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Communication"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Automate"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Inference"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Process"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Record"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Store"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Train"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#Transform"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#SystemRelation"/>
+        </owl:members>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#A">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#CS">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#T">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#S">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#P1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#P2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#I">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#ED">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#B">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/testRegeln#C">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
+        <rdfs:comment>Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
+        <rdfs:label>Direkte Beziehung ableiten Communication</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Communication"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DifferentIndividualsAtom"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasCommunication"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasCommunication"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#TechnicalResource"/>
+                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#communicatesWith"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#communicatesWith"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
+        <rdfs:comment>Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
+        <rdfs:label>Direkte Beziehung ableiten ProductFlow</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Product"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#ProductFlow"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#isFlowing"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Transform"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#isTransformedBy"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
+                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#isBeingProcessedWith"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
+        <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
+        <rdfs:label>CloudFully Hinreichende Bedingung</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#CloudSystem"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Train"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#T"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Store"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#S"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Process"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Process"/>
+                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DifferentIndividualsAtom"/>
+                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                        <rdf:first>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Inference"/>
+                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#I"/>
+                                                                            </rdf:Description>
+                                                                        </rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                <rdf:first>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#T"/>
+                                                                                    </rdf:Description>
+                                                                                </rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                        <rdf:first>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                                                                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#S"/>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:first>
+                                                                                        <rdf:rest>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                <rdf:first>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:first>
+                                                                                                <rdf:rest>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                        <rdf:first>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                                                                                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:first>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                                <rdf:first>
+                                                                                                                    <rdf:Description>
+                                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#CS"/>
+                                                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#I"/>
+                                                                                                                    </rdf:Description>
+                                                                                                                </rdf:first>
+                                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:rest>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:rest>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#ErfuelltHinreichendeBedingungFuer"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                        <swrl:argument2>CloudFully</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
+        <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
+        <rdfs:label>EdgeFully Hinreichende Bedingung</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#AiSystem"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#EdgeDevice"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Train"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#T"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Store"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#S"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Process"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Process"/>
+                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DifferentIndividualsAtom"/>
+                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                        <rdf:first>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Inference"/>
+                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#I"/>
+                                                                            </rdf:Description>
+                                                                        </rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                <rdf:first>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#T"/>
+                                                                                    </rdf:Description>
+                                                                                </rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                        <rdf:first>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                                                                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#S"/>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:first>
+                                                                                        <rdf:rest>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                <rdf:first>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P1"/>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:first>
+                                                                                                <rdf:rest>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                        <rdf:first>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                                                                                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#P2"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:first>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                                                <rdf:first>
+                                                                                                                    <rdf:Description>
+                                                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                                                                                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#ED"/>
+                                                                                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#I"/>
+                                                                                                                    </rdf:Description>
+                                                                                                                </rdf:first>
+                                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:rest>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:rest>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#ErfuelltHinreichendeBedingungFuer"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                        <swrl:argument2>EdgeFully</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
+        <rdfs:comment>Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
+        <rdfs:label>Direkte Beziehung ableiten Zuweisung</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#SystemFunction"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#Assignment"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasSystemFunctionAssignment"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/testRegeln#SystemComponent"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignmentComponent"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#B"/>
+                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/testRegeln#hasAssignment"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/testRegeln#C"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/testRegeln#A"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
+
