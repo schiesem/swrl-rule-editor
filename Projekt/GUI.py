@@ -35,6 +35,16 @@ class SWRLRuleEditor(QMainWindow):
         #print(return_elements(ontoVorlage.classes()))
         #print("break")
         print(return_elements(onto.classes()))
+        for rule in onto.rules():
+
+            # Zugriff auf das swrl2:isRuleEnabled-Attribut
+            is_enabled = rule.isRuleEnabled.first()
+            # Zugriff auf das Label der Regel
+            rule_label = rule.label.first()
+            # Ausgabe des Labels und des Status der Regel
+            print("Regel:", rule_label)
+            print("Aktiviert:", is_enabled)
+                
         self.test = "Test neu!"
         self.onto = onto
         
