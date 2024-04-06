@@ -4,6 +4,7 @@ import os
 from owlready2 import *
 import owlready2
 from os import path
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class SWRLRuleEditor(QMainWindow):
@@ -35,6 +36,10 @@ class SWRLRuleEditor(QMainWindow):
         #print(return_elements(ontoVorlage.classes()))
         #print("break")
         print(return_elements(onto.classes()))
+
+        # Layout für die Anzeige der Regeln
+        y = 120  # Anfangsposition für y-Koordinate
+
         for rule in onto.rules():
 
             # Zugriff auf das swrl2:isRuleEnabled-Attribut
@@ -42,12 +47,22 @@ class SWRLRuleEditor(QMainWindow):
             # Zugriff auf das Label der Regel
             rule_label = rule.label.first()
             # Ausgabe des Labels und des Status der Regel
+            self.addLineEditForRule(f"Regel: {rule_label}\nAktiviert: {is_enabled}", y)
+            y += 30  # Verschieben um 30 Pixel nach unten
+
             print("Regel:", rule_label)
             print("Aktiviert:", is_enabled)
-                
+
         self.test = "Test neu!"
         self.onto = onto
         
+    def addLineEditForRule(self, text, y):
+        line_edit = QLineEdit(self)
+        line_edit.setText(text)
+        line_edit.setGeometry(QtCore.QRect(30, y, 500, 20))  # Position und Größe festlegen
+        line_edit.show()
+        
+
 
 def return_elements(entities):
 
