@@ -81,10 +81,10 @@
    <widget class="QTreeWidget" name="treeOfClasses">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>271</y>
-      <width>181</width>
-      <height>351</height>
+      <x>630</x>
+      <y>20</y>
+      <width>331</width>
+      <height>601</height>
      </rect>
     </property>
     <column>
@@ -92,34 +92,14 @@
       <string>list of classes</string>
      </property>
     </column>
-    <item>
-     <property name="text">
-      <string>class1</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>class1.1</string>
-      </property>
-     </item>
-    </item>
-    <item>
-     <property name="text">
-      <string>class2</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>class2.2</string>
-      </property>
-     </item>
-    </item>
    </widget>
    <widget class="QTreeWidget" name="treeOfProperties">
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>270</y>
+      <y>20</y>
       <width>181</width>
-      <height>351</height>
+      <height>601</height>
      </rect>
     </property>
     <column>
@@ -148,24 +128,11 @@
      </item>
     </item>
    </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>290</y>
-      <width>118</width>
-      <height>3</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="Line" name="line_4">
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>290</y>
+      <y>40</y>
       <width>118</width>
       <height>3</height>
      </rect>
@@ -182,6 +149,19 @@
       <width>131</width>
       <height>22</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="Line" name="line_5">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>40</y>
+      <width>118</width>
+      <height>3</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
   </widget>
