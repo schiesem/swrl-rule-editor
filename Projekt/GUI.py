@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem
 
 
-
+#Main Window
 class SWRLRuleEditor(QMainWindow):
 
     def __init__(self):
@@ -20,7 +20,7 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.addItems(ontology_names)
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
-
+        self.pushButton.clicked.connect(self.open_second_window)
 
     def ontologySelected(self):    
         selected_text = self.comboBoxOntologies.currentText()
@@ -154,7 +154,17 @@ class SWRLRuleEditor(QMainWindow):
         self.treeOfDataProperties.header().setStretchLastSection(False)
         self.treeOfDataProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
+    def open_second_window(self):
+        self.second_window = SecondWindow()
+        self.second_window.show()
 
+#Rule Editor Window
+class SecondWindow(QMainWindow):
+    def __init__(self):
+        super(SecondWindow, self).__init__()
+        uic.loadUi("Projekt\SecondWindow.ui", self)
+        self.show()
+ 
 
 
 def return_elements(entities):
