@@ -21,7 +21,7 @@ class SWRLRuleEditor(QMainWindow):
 
         # Suchfeld für Regeln
         self.rule_lineEdit.textChanged.connect(self.search_rules)
-        self.searchLineEdit.installEventFilter(self)
+        self.rule_lineEdit.installEventFilter(self)
 
         #listwidget
         self.ruleListWidget.installEventFilter(self)
@@ -29,21 +29,21 @@ class SWRLRuleEditor(QMainWindow):
         # Liste für die gefundenen Regeln
         self.rule_list = []
 
-    def eventFilter(self, obj, event):
-        if obj == self.searchLineEdit:
-           
-           if event.type() == QtCore.QEvent.MouseButtonPress:
-            # Bei Klick auf die Suchleiste die Liste ausblenden
-            self.ruleListWidget.hide()
-            return False
-           
-        elif obj == self.ruleListWidget:
-            if event.type() == QtCore.QEvent.MouseButtonPress:
-            # Bei Klick auf die Liste die Liste anzeigen
-            self.ruleListWidget.show()
-            return False
-        
-        return super().eventFilter(obj, event)    
+    #def eventFilter(self, obj, event):
+    #    if obj == self.rule_lineEdit:
+    #       
+    #       if event.type() == QtCore.QEvent.MouseButtonPress:
+    #        # Bei Klick auf die Suchleiste die Liste ausblenden
+    #        self.ruleListWidget.hide()
+    #        return False
+    #       
+    #    elif obj == self.ruleListWidget:
+    #        if event.type() == QtCore.QEvent.MouseButtonPress:
+    #           # Bei Klick auf die Liste die Liste anzeigen
+    #           self.ruleListWidget.show()
+    #           return False
+    #    
+    #    return super().eventFilter(obj, event)    
         
         #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
         #print("...")
@@ -84,7 +84,7 @@ class SWRLRuleEditor(QMainWindow):
             self.rule_list.append((rule_label, is_enabled))
 
         # Regeln nach Namen sortieren, um die Suchergebnisse hervorzuheben
-        self.rule_list.sort(key=lambda x: -x[0].lower().find(self.rule_lineEdit.text().lower()))
+        self.rule_list.sort(key=lambda x: x[0].lower())
 
         # Liste aktualisieren
         self.updateRuleListWidget()
