@@ -21,7 +21,7 @@ class SWRLRuleEditor(QMainWindow):
 
         # Suchfeld für Regeln
         self.rule_lineEdit.textChanged.connect(self.search_rules)
-        self.searchLineEdit.installEventFilter(self)
+        self.rule_lineEdit.installEventFilter(self)
 
         #listwidget
         self.ruleListWidget.installEventFilter(self)
@@ -29,21 +29,21 @@ class SWRLRuleEditor(QMainWindow):
         # Liste für die gefundenen Regeln
         self.rule_list = []
 
-    def eventFilter(self, obj, event):
-        if obj == self.searchLineEdit:
-           
-           if event.type() == QtCore.QEvent.MouseButtonPress:
-            # Bei Klick auf die Suchleiste die Liste ausblenden
-            self.ruleListWidget.hide()
-            return False
-           
-        elif obj == self.ruleListWidget:
-            if event.type() == QtCore.QEvent.MouseButtonPress:
-            # Bei Klick auf die Liste die Liste anzeigen
-            self.ruleListWidget.show()
-            return False
-        
-        return super().eventFilter(obj, event)    
+    #def eventFilter(self, obj, event):
+    #    if obj == self.searchLineEdit:
+    #       
+    #       if event.type() == QtCore.QEvent.MouseButtonPress:
+    #        # Bei Klick auf die Suchleiste die Liste ausblenden
+    #        self.ruleListWidget.hide()
+    #        return False
+    #       
+    #    elif obj == self.ruleListWidget:
+    #        if event.type() == QtCore.QEvent.MouseButtonPress:
+    #        # Bei Klick auf die Liste die Liste anzeigen
+    #        self.ruleListWidget.show()
+    #        return False
+    #    
+    #    return super().eventFilter(obj, event)    
         
         #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
         #print("...")
