@@ -184,6 +184,29 @@
      </rect>
     </property>
    </widget>
+   <widget class="QListWidget" name="ruleListWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>441</width>
+      <height>351</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="rule_lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>441</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Suche nach Regel...</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

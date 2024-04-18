@@ -19,9 +19,40 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
 
+        # Suchfeld für Regeln
+        self.rule_lineEdit.textChanged.connect(self.search_rules)
+        self.searchLineEdit.installEventFilter(self)
+
+        #listwidget
+        self.ruleListWidget.installEventFilter(self)
+
+        # Liste für die gefundenen Regeln
+        self.rule_list = []
+
+    def eventFilter(self, obj, event):
+        if obj == self.searchLineEdit:
+           
+           if event.type() == QtCore.QEvent.MouseButtonPress:
+            # Bei Klick auf die Suchleiste die Liste ausblenden
+            self.ruleListWidget.hide()
+            return False
+           
+        elif obj == self.ruleListWidget:
+            if event.type() == QtCore.QEvent.MouseButtonPress:
+            # Bei Klick auf die Liste die Liste anzeigen
+            self.ruleListWidget.show()
+            return False
+        
+        return super().eventFilter(obj, event)    
+        
         #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
         #print("...")
         #print(return_elements(ontoVorlage.classes()))
+
+    def addRuleToListWidget(self, rule_label, is_enabled):
+        item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
+        item = QtWidgets.QListWidgetItem(item_text)
+        self.ruleListWidget.addItem(item)    
 
     def ontologySelected(self):    
         selected_text = self.comboBoxOntologies.currentText()
@@ -47,21 +78,38 @@ class SWRLRuleEditor(QMainWindow):
             # Zugriff auf das Label der Regel
             rule_label = rule.label.first()
             # Ausgabe des Labels und des Status der Regel
-            self.addLineEditForRule(f"Regel: {rule_label}\nAktiviert: {is_enabled}", y)
-            y += 30  # Verschieben um 30 Pixel nach unten
-
             print("Regel:", rule_label)
             print("Aktiviert:", is_enabled)
+            
+            self.rule_list.append((rule_label, is_enabled))
+
+        # Regeln nach Namen sortieren, um die Suchergebnisse hervorzuheben
+        self.rule_list.sort(key=lambda x: -x[0].lower().find(self.rule_lineEdit.text().lower()))
+
+        # Liste aktualisieren
+        self.updateRuleListWidget()
+            
 
         self.test = "Test neu!"
         self.onto = onto
         
-    def addLineEditForRule(self, text, y):
-        line_edit = QLineEdit(self)
-        line_edit.setText(text)
-        line_edit.setGeometry(QtCore.QRect(30, y, 500, 20))  # Position und Größe festlegen
-        line_edit.show()
-        
+    def search_rules(self, text):
+        # Regeln nach Namen sortieren und Liste aktualisieren
+        self.rule_list.sort(key=lambda x: -x[0].lower().find(text.lower()))
+        self.updateRuleListWidget()
+
+    def updateRuleListWidget(self):
+        # Liste leeren
+        self.ruleListWidget.clear()
+
+        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
+        for rule_label, is_enabled in self.rule_list:
+            item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
+            item = QtWidgets.QListWidgetItem(item_text)
+            # Hervorhebung der Übereinstimmungen in hellblau
+            if self.rule_lineEdit.text().lower() in rule_label.lower():
+                item.setBackground(QtGui.QColor("lightblue"))
+            self.ruleListWidget.addItem(item)
 
 
 def return_elements(entities):
