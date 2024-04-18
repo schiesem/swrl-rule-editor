@@ -20,13 +20,14 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.addItems(ontology_names)
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
+        self.pushButton.clicked.connect(self.open_second_window)
 
         # Suchfeld für Regeln
         self.rule_lineEdit.textChanged.connect(self.search_rules)
         self.rule_lineEdit.installEventFilter(self)
 
         #listwidget
-        self.ruleListWidget.installEventFilter(self)
+        self.rule_listWidget.installEventFilter(self)
 
         # Liste für die gefundenen Regeln
         self.rule_list = []
@@ -83,24 +84,48 @@ class SWRLRuleEditor(QMainWindow):
 
 
 
-        # Layout für die Anzeige der Regeln
+                # Layout für die Anzeige der Regeln
         y = 120  # Anfangsposition für y-Koordinate
-
         for rule in onto.rules():
-
             # Zugriff auf das swrl2:isRuleEnabled-Attribut
             is_enabled = rule.isRuleEnabled.first()
             # Zugriff auf das Label der Regel
             rule_label = rule.label.first()
             # Ausgabe des Labels und des Status der Regel
-            self.addLineEditForRule(f"Regel: {rule_label}\nAktiviert: {is_enabled}", y)
-            y += 30  # Verschieben um 30 Pixel nach unten
+            
 
-            #print("Regel:", rule_label)
-            #print("Aktiviert:", is_enabled)
+            print("Regel:", rule_label)
+            print("Aktiviert:", is_enabled)
+
+            self.rule_list.append((rule_label, is_enabled))
+
+        # Regeln nach Namen sortieren, um die Suchergebnisse hervorzuheben
+        self.rule_list.sort(key=lambda x: -x[0].lower().find(self.rule_lineEdit.text().lower()))
+
+        # Liste aktualisieren
+        self.updateRuleListWidget()
 
         self.test = "Test neu!"
         self.onto = onto
+
+    def search_rules(self, text):
+        # Regeln nach Namen sortieren und Liste aktualisieren
+        self.rule_list.sort(key=lambda x: -x[0].lower().find(text.lower()))
+        self.updateRuleListWidget()
+
+    def updateRuleListWidget(self):
+        # Liste leeren
+        self.rule_listWidget.clear()
+
+        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
+        for rule_label, is_enabled in self.rule_list:
+            item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
+            item = QtWidgets.QListWidgetItem(item_text)
+            # Hervorhebung der Übereinstimmungen in hellblau
+            if self.rule_lineEdit.text().lower() in rule_label.lower():
+                item.setBackground(QtGui.QColor("lightblue"))
+            self.rule_listWidget.addItem(item)
+
         
    
     def printClassTree(self, hierarchy_data):
@@ -126,8 +151,8 @@ class SWRLRuleEditor(QMainWindow):
                 visited.append(name)
                 if name in hierarchy_data:
                     add_items(parent_item, hierarchy_data[name])
-        self.treeOfObjectProperties.header().setStretchLastSection(False)
-        self.treeOfObjectProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.treeOfClasses.header().setStretchLastSection(False)
+        self.treeOfClasses.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
     def printObjectTree(self, hierarchy_data):
         visited = []
