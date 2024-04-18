@@ -33,10 +33,19 @@ class SWRLRuleEditor(QMainWindow):
         onto = get_ontology("file://" + file_path_save).load()
         print("The ontology has been loaded")                                       #testing
         
-        #Creates class-hierarchy
         
-        hierarchy_data = create_hierarchy(Thing)
-        self.printtree(hierarchy_data)
+        #Creates class-hierarchy
+        self.treeOfClasses.clear()
+        hierarchy_classes_data = create_hierarchy(Thing)
+        self.printClassTree(hierarchy_classes_data)
+
+        self.treeOfObjectProperties.clear()
+        hierarchy_ObjectProperties_data = create_hierarchy(ObjectProperty)
+        self.printObjectTree(hierarchy_ObjectProperties_data)
+
+        self.treeOfDataProperties.clear()
+        hierarchy_DataProperties_data = create_hierarchy(DataProperty)
+        self.printDataTree(hierarchy_DataProperties_data)
 
 
 
@@ -67,7 +76,7 @@ class SWRLRuleEditor(QMainWindow):
 
 
 
-    def printtree(self, hierarchy_data):
+    def printClassTree(self, hierarchy_data):
         visited = []
 
         # Function to recursively traverse and add items to the tree
@@ -76,6 +85,7 @@ class SWRLRuleEditor(QMainWindow):
                 if item not in visited:
                     child_item = QTreeWidgetItem(parent_item)
                     child_item.setText(0, item)
+                    child_item.setExpanded(True)
                     visited.append(item)
                     if item in hierarchy_data:
                         add_items(child_item, hierarchy_data[item])
@@ -85,11 +95,64 @@ class SWRLRuleEditor(QMainWindow):
                 # Create parent item
                 parent_item = QTreeWidgetItem(self.treeOfClasses)
                 parent_item.setText(0, name)
+                parent_item.setExpanded(True)
                 visited.append(name)
                 if name in hierarchy_data:
                     add_items(parent_item, hierarchy_data[name])
+        self.treeOfObjectProperties.header().setStretchLastSection(False)
+        self.treeOfObjectProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
+    def printObjectTree(self, hierarchy_data):
+        visited = []
 
+        # Function to recursively traverse and add items to the tree
+        def add_items(parent_item, items):
+            for item in items:
+                if item not in visited:
+                    child_item = QTreeWidgetItem(parent_item)
+                    child_item.setText(0, item)
+                    child_item.setExpanded(True)
+                    visited.append(item)
+                    if item in hierarchy_data:
+                        add_items(child_item, hierarchy_data[item])
+
+        for name in hierarchy_data:
+            if name not in visited:
+                # Create parent item
+                parent_item = QTreeWidgetItem(self.treeOfObjectProperties)
+                parent_item.setText(0, name)
+                parent_item.setExpanded(True)
+                visited.append(name)
+                if name in hierarchy_data:
+                    add_items(parent_item, hierarchy_data[name]) 
+        self.treeOfObjectProperties.header().setStretchLastSection(False)
+        self.treeOfObjectProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)               
+
+    def printDataTree(self, hierarchy_data):
+        visited = []
+
+        # Function to recursively traverse and add items to the tree
+        def add_items(parent_item, items):
+            for item in items:
+                if item not in visited:
+                    child_item = QTreeWidgetItem(parent_item)
+                    child_item.setText(0, item)
+                    child_item.setExpanded(True)
+                    visited.append(item)
+                    if item in hierarchy_data:
+                        add_items(child_item, hierarchy_data[item])
+
+        for name in hierarchy_data:
+            if name not in visited:
+                # Create parent item
+                parent_item = QTreeWidgetItem(self.treeOfDataProperties)
+                parent_item.setText(0, name)
+                parent_item.setExpanded(True)
+                visited.append(name)
+                if name in hierarchy_data:
+                    add_items(parent_item, hierarchy_data[name])
+        self.treeOfDataProperties.header().setStretchLastSection(False)
+        self.treeOfDataProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
 
 

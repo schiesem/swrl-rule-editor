@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1228</width>
-    <height>700</height>
+    <width>1226</width>
+    <height>693</height>
    </rect>
   </property>
   <property name="cursor">
@@ -81,65 +81,26 @@
    <widget class="QTreeWidget" name="treeOfClasses">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>610</x>
       <y>20</y>
-      <width>331</width>
+      <width>231</width>
       <height>601</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustIgnored</enum>
     </property>
     <column>
      <property name="text">
       <string>list of classes</string>
      </property>
     </column>
-   </widget>
-   <widget class="QTreeWidget" name="treeOfProperties">
-    <property name="geometry">
-     <rect>
-      <x>1000</x>
-      <y>20</y>
-      <width>181</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>list of properties</string>
-     </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>objectproperties</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>prop1</string>
-      </property>
-     </item>
-    </item>
-    <item>
-     <property name="text">
-      <string>dataproperties</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>prop2</string>
-      </property>
-     </item>
-    </item>
-   </widget>
-   <widget class="Line" name="line_4">
-    <property name="geometry">
-     <rect>
-      <x>1000</x>
-      <y>40</y>
-      <width>118</width>
-      <height>3</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
    </widget>
    <widget class="QComboBox" name="comboBoxOntologies">
     <property name="geometry">
@@ -151,18 +112,35 @@
      </rect>
     </property>
    </widget>
-   <widget class="Line" name="line_5">
+   <widget class="QTreeWidget" name="treeOfObjectProperties">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>40</y>
-      <width>118</width>
-      <height>3</height>
+      <x>850</x>
+      <y>20</y>
+      <width>181</width>
+      <height>601</height>
      </rect>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+    <column>
+     <property name="text">
+      <string>list of objectproperties</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QTreeWidget" name="treeOfDataProperties">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>20</y>
+      <width>181</width>
+      <height>601</height>
+     </rect>
     </property>
+    <column>
+     <property name="text">
+      <string>list of dataproperties</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -170,7 +148,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1228</width>
+     <width>1226</width>
      <height>22</height>
     </rect>
    </property>
