@@ -5,7 +5,7 @@ from owlready2 import *
 import owlready2
 from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QListWidgetItem, QCheckBox
 
 
 #Main Window
@@ -21,6 +21,7 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
         self.pushButton.clicked.connect(self.open_second_window)
+        self.rule_listWidget.itemClicked.connect(self.open_second_window)
 
         # Suchfeld für Regeln
         self.rule_lineEdit.textChanged.connect(self.search_rules)
@@ -32,22 +33,6 @@ class SWRLRuleEditor(QMainWindow):
         # Liste für die gefundenen Regeln
         self.rule_list = []
 
-    #def eventFilter(self, obj, event):
-    #    if obj == self.searchLineEdit:
-    #       
-    #       if event.type() == QtCore.QEvent.MouseButtonPress:
-    #        # Bei Klick auf die Suchleiste die Liste ausblenden
-    #        self.ruleListWidget.hide()
-    #        return False
-    #       
-    #    elif obj == self.ruleListWidget:
-    #        if event.type() == QtCore.QEvent.MouseButtonPress:
-    #        # Bei Klick auf die Liste die Liste anzeigen
-    #        self.ruleListWidget.show()
-    #        return False
-    #    
-    #    return super().eventFilter(obj, event)    
-        
         #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
         #print("...")
         #print(return_elements(ontoVorlage.classes()))
@@ -69,6 +54,7 @@ class SWRLRuleEditor(QMainWindow):
         print("The ontology has been loaded")                                       #testing
         
         
+
         #Creates class-hierarchy
         self.treeOfClasses.clear()
         hierarchy_classes_data = create_hierarchy(Thing)
@@ -82,7 +68,8 @@ class SWRLRuleEditor(QMainWindow):
         hierarchy_DataProperties_data = create_hierarchy(DataProperty)
         self.printDataTree(hierarchy_DataProperties_data)
 
-
+        # Regeln des ListWidgets löschen dafür Liste löschen
+        self.rule_list.clear()
 
                 # Layout für die Anzeige der Regeln
         y = 120  # Anfangsposition für y-Koordinate
@@ -114,18 +101,17 @@ class SWRLRuleEditor(QMainWindow):
         self.updateRuleListWidget()
 
     def updateRuleListWidget(self):
-        # Liste leeren
-        self.rule_listWidget.clear()
-
-        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
-        for rule_label, is_enabled in self.rule_list:
-            item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
-            item = QtWidgets.QListWidgetItem(item_text)
-            # Hervorhebung der Übereinstimmungen in hellblau
-            if self.rule_lineEdit.text().lower() in rule_label.lower():
-                item.setBackground(QtGui.QColor("lightblue"))
-            self.rule_listWidget.addItem(item)
-
+       # Liste leeren
+       self.rule_listWidget.clear()
+   
+       # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
+       for rule_label, is_enabled in self.rule_list:
+           # Erstellen einer benutzerdefinierten Listenelement-Instanz
+           item = RuleWidgetItem(rule_label, is_enabled)
+           # Hervorhebung der Übereinstimmungen in hellblau
+           if self.rule_lineEdit.text().lower() in rule_label.lower():
+               item.setBackground(QtGui.QColor("lightblue"))
+           self.rule_listWidget.addItem(item)   
         
    
     def printClassTree(self, hierarchy_data):
@@ -217,7 +203,21 @@ class SecondWindow(QMainWindow):
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
  
+class RuleWidgetItem(QtWidgets.QListWidgetItem):
+    def __init__(self, rule_label, is_enabled):
+        super().__init__(f"Regel: {rule_label}\nAktiviert: {is_enabled}")
+        self.rule_label = rule_label
+        self.is_enabled = is_enabled
+        self.checkbox = QtWidgets.QCheckBox()
+        self.checkbox.setChecked(is_enabled)
+        self.checkbox.stateChanged.connect(self.toggle_rule)
 
+    def toggle_rule(self, state):
+        new_state = state == QtCore.Qt.Checked
+        # Führe hier den Code aus, um die Regel zu aktivieren/deaktivieren
+        self.is_enabled = new_state
+        # aktualisiere die Anzeige
+        self.setText(f"Regel: {self.rule_label}\nAktiviert: {self.is_enabled}")
 
 def return_elements(entities):
 
