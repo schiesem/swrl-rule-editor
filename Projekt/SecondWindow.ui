@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1429</width>
-    <height>1002</height>
+    <width>1431</width>
+    <height>1009</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,10 +30,10 @@
    <widget class="Line" name="line_2">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>700</x>
       <y>320</y>
       <width>16</width>
-      <height>581</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="orientation">
@@ -54,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>890</y>
+      <y>880</y>
       <width>1431</width>
       <height>20</height>
      </rect>
@@ -66,10 +66,10 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>1280</x>
-      <y>920</y>
-      <width>141</width>
-      <height>23</height>
+      <x>1250</x>
+      <y>910</y>
+      <width>151</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -156,13 +156,141 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="AddLine">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>651</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>-1</y>
+       <width>641</width>
+       <height>521</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>639</width>
+        <height>519</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>330</y>
+      <width>651</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <widget class="QScrollArea" name="scrollArea_2">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>-1</y>
+       <width>641</width>
+       <height>521</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>639</width>
+        <height>519</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="AddLine_2">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="RemoveLine">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Line</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="RemoveLine_2">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Line</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1429</width>
+     <width>1431</width>
      <height>22</height>
     </rect>
    </property>

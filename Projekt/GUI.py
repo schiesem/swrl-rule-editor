@@ -5,7 +5,8 @@ from owlready2 import *
 import owlready2
 from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton
+from PyQt5.QtCore import Qt
 
 
 #Main Window
@@ -216,7 +217,53 @@ class SecondWindow(QMainWindow):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
- 
+
+        self.add_line()
+        self.add_line_2()
+        self.AddLine.clicked.connect(self.add_line)
+        self.AddLine_2.clicked.connect(self.add_line_2)
+        self.RemoveLine.clicked.connect(self.remove_line)
+
+    def add_line(self):
+        # Create horizontal layout for line
+        line_layout = QHBoxLayout()
+
+        # Add Line Edits and Combo Boxes
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QLineEdit())
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QLineEdit())
+        print(line_layout)
+
+        # Add the horizontal layout to the vertical layout
+        self.verticalLayout.addLayout(line_layout)
+        self.verticalLayout.setAlignment(Qt.AlignTop)
+
+    def add_line_2(self):
+        # Create horizontal layout for line
+        line_layout = QHBoxLayout()
+
+        # Add Line Edits and Combo Boxes
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QLineEdit())
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QComboBox())
+        line_layout.addWidget(QLineEdit())
+
+
+        # Add the horizontal layout to the vertical layout
+        self.verticalLayout_2.addLayout(line_layout)
+        self.verticalLayout_2.setAlignment(Qt.AlignTop)
+        
+
+    def remove_line(self):                                      #not working properly.....................................................................................
+        count = self.verticalLayout.count()
+        if count == 1:
+            return
+        item = self.verticalLayout.itemAt(count - 2)
+        self.verticalLayout.removeItem(item)
+
 
 
 def return_elements(entities):
@@ -235,7 +282,7 @@ def return_elements(entities):
         return listeEntities
     except:
         print("Error")
-
+        
 
 def list_files_in_folder(folder_path):
 
