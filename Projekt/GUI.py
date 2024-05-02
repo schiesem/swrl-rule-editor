@@ -7,7 +7,7 @@ from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton
 from PyQt5.QtCore import Qt
-
+import sip
 
 #Main Window
 class SWRLRuleEditor(QMainWindow):
@@ -228,17 +228,23 @@ class SecondWindow(QMainWindow):
         # Create horizontal layout for line
         line_layout = QHBoxLayout()
 
+        count = self.verticalLayout.count()
+        print("count before adding line: " + str(count))
         # Add Line Edits and Combo Boxes
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
-        print(line_layout)
+        
+        line_layout.setObjectName("line_layout_" + str(count))
+        print("added line: " + line_layout.objectName() + "at count: " + str(self.verticalLayout.count()))
 
         # Add the horizontal layout to the vertical layout
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
+
+        
 
     def add_line_2(self):
         # Create horizontal layout for line
@@ -250,19 +256,40 @@ class SecondWindow(QMainWindow):
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
+        
 
 
         # Add the horizontal layout to the vertical layout
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
         
+        
 
-    def remove_line(self):                                      #not working properly.....................................................................................
+    '''def remove_line(self):                                      #not working properly.....................................................................................
         count = self.verticalLayout.count()
-        if count == 1:
-            return
+        print(count)
+        #if count == 1:
+        #    return
         item = self.verticalLayout.itemAt(count - 2)
         self.verticalLayout.removeItem(item)
+        self.verticalLayout.update() '''       
+
+    def remove_line(self):                                      #not working properly.....................................................................................
+            count = self.verticalLayout.count() #gibt anzahl an Elementen in VerticalLayout(gefüllten Zeilen) zurück
+            print("countbefore deleting: " + str(count))
+            if count == 1:
+                return
+            
+            item = self.verticalLayout.itemAt(count -1)  #letztes stelle wird ausgewählt (mit -1 letztes -> löschen funktioniert nicht)
+                                                         #""                             (mit -2 vorletztes -> löschen funktioniert manchmal)
+            
+            print("deleted item: " + item.objectName())
+            self.verticalLayout.removeItem(item)        #entfernt mit -2 manche, und mit -1 garnix visuell....
+            item.deleteLater()                          #soll auch aus arbeitsspeicher löschen, klappt auch nicht
+            print("Warum ist das itam noch da???: " + item.objectName()) # -> wird nicht aus arbeitsspeicher gelöscht
+            self.verticalLayout.update()        #auch update der GUI bringt nix
+            count = self.verticalLayout.count()     #count verringert sich, warum auch immer? obwohl nichts entfernt wird...
+            print("count after deleting: " + str(count) +"warum weniger obwohl das item nicht gelöscht wird?")
 
 
 
