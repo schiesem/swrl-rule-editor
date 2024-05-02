@@ -9,7 +9,7 @@
          xmlns:swrl2="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
 
 <owl:Ontology rdf:about="http://www.semanticweb.org/testRegeln">
-  <rdfs:comment>Folgende Regeln sind hier direkt implementiert:
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Folgende Regeln sind hier direkt implementiert:
 -SWRL: Direkte Verbindungen (Assignment, Communication, Productflow)
 -SWRL: Hinreichende Bedingung für CLoudFully und EdgeFully (Achtung Individuum von AI System nötig)</rdfs:comment>
 </owl:Ontology>
@@ -99,6 +99,26 @@
   <rdfs:subClassOf rdf:resource="#SystemComponent"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SystemElement">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isPartOf"/>
+      <owl:someValuesFrom rdf:resource="#AiSystem"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#AiSystem">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#composesOf"/>
+      <owl:onClass rdf:resource="#SystemElement"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:disjointWith rdf:resource="#SystemElement"/>
+</owl:Class>
+
 <owl:Class rdf:about="#Product">
   <rdfs:subClassOf rdf:resource="#SystemComponent"/>
   <rdfs:subClassOf>
@@ -156,17 +176,6 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Communication">
-  <rdfs:subClassOf rdf:resource="#SystemRelation"/>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#hasCommunicationComponent"/>
-      <owl:onClass rdf:resource="#SystemComponent"/>
-      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-</owl:Class>
-
 <owl:Class rdf:about="#Assignment">
   <rdfs:subClassOf rdf:resource="#SystemRelation"/>
   <rdfs:subClassOf>
@@ -185,6 +194,17 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#Communication">
+  <rdfs:subClassOf rdf:resource="#SystemRelation"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasCommunicationComponent"/>
+      <owl:onClass rdf:resource="#SystemComponent"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
 <owl:Class rdf:about="#Transform">
   <rdfs:subClassOf rdf:resource="#SystemFunction"/>
   <rdfs:subClassOf>
@@ -196,32 +216,12 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#SystemElement">
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#isPartOf"/>
-      <owl:someValuesFrom rdf:resource="#AiSystem"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-</owl:Class>
-
-<owl:Class rdf:about="#AiSystem">
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#composesOf"/>
-      <owl:onClass rdf:resource="#SystemElement"/>
-      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <owl:disjointWith rdf:resource="#SystemElement"/>
+<owl:Class rdf:about="#SystemRelation">
+  <rdfs:subClassOf rdf:resource="#SystemElement"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Actuator">
   <rdfs:subClassOf rdf:resource="#TechnicalResource"/>
-</owl:Class>
-
-<owl:Class rdf:about="#SystemRelation">
-  <rdfs:subClassOf rdf:resource="#SystemElement"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Automate">
@@ -435,9 +435,9 @@
       </rdf:rest>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten Communication</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Communication</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -506,9 +506,9 @@
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten ProductFlow</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten ProductFlow</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -654,15 +654,15 @@
         <swrl:DatavaluedPropertyAtom>
           <swrl:propertyPredicate rdf:resource="#ErfuelltHinreichendeBedingungFuer"/>
           <swrl:argument1 rdf:resource="#A"/>
-          <swrl:argument2>CloudFully</swrl:argument2>
+          <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CloudFully</swrl:argument2>
         </swrl:DatavaluedPropertyAtom>
       </rdf:first>
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
-  <rdfs:label>CloudFully Hinreichende Bedingung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CloudFully Hinreichende Bedingung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -808,15 +808,15 @@
         <swrl:DatavaluedPropertyAtom>
           <swrl:propertyPredicate rdf:resource="#ErfuelltHinreichendeBedingungFuer"/>
           <swrl:argument1 rdf:resource="#A"/>
-          <swrl:argument2>EdgeFully</swrl:argument2>
+          <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EdgeFully</swrl:argument2>
         </swrl:DatavaluedPropertyAtom>
       </rdf:first>
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
-  <rdfs:label>EdgeFully Hinreichende Bedingung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EdgeFully Hinreichende Bedingung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -885,9 +885,9 @@
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten Zuweisung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Zuweisung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 

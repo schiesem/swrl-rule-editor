@@ -22,6 +22,7 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
         self.pushButton.clicked.connect(self.open_second_window)
+        self.rule_listWidget.itemClicked.connect(self.open_second_window)
 
         # Suchfeld für Regeln
         self.rule_lineEdit.textChanged.connect(self.search_rules)
@@ -33,22 +34,6 @@ class SWRLRuleEditor(QMainWindow):
         # Liste für die gefundenen Regeln
         self.rule_list = []
 
-    #def eventFilter(self, obj, event):
-    #    if obj == self.searchLineEdit:
-    #       
-    #       if event.type() == QtCore.QEvent.MouseButtonPress:
-    #        # Bei Klick auf die Suchleiste die Liste ausblenden
-    #        self.ruleListWidget.hide()
-    #        return False
-    #       
-    #    elif obj == self.ruleListWidget:
-    #        if event.type() == QtCore.QEvent.MouseButtonPress:
-    #        # Bei Klick auf die Liste die Liste anzeigen
-    #        self.ruleListWidget.show()
-    #        return False
-    #    
-    #    return super().eventFilter(obj, event)    
-        
         #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
         #print("...")
         #print(return_elements(ontoVorlage.classes()))
@@ -69,7 +54,10 @@ class SWRLRuleEditor(QMainWindow):
         onto = get_ontology("file://" + file_path_save).load()
         print("The ontology has been loaded")                                       #testing
         
-        
+        # Regeln des ListWidgets löschen und Liste leeren
+        self.rule_listWidget.clear()
+        self.rule_list = []
+
         #Creates class-hierarchy
         self.treeOfClasses.clear()
         hierarchy_classes_data = create_hierarchy(Thing)
@@ -83,29 +71,21 @@ class SWRLRuleEditor(QMainWindow):
         hierarchy_DataProperties_data = create_hierarchy(DataProperty)
         self.printDataTree(hierarchy_DataProperties_data)
 
+        
 
-
-                # Layout für die Anzeige der Regeln
-        y = 120  # Anfangsposition für y-Koordinate
-        for rule in onto.rules():
-            # Zugriff auf das swrl2:isRuleEnabled-Attribut
-            is_enabled = rule.isRuleEnabled.first()
-            # Zugriff auf das Label der Regel
-            rule_label = rule.label.first()
-            # Ausgabe des Labels und des Status der Regel
-            
-
-            print("Regel:", rule_label)
-            print("Aktiviert:", is_enabled)
-
-            self.rule_list.append((rule_label, is_enabled))
-
+            # Regeln hinzufügen
+        for rule in self.onto.rules():
+            is_enabled = rule.isRuleEnabled.first() if rule.isRuleEnabled else False
+            rule_label = rule.label.first() if rule.label else "Unnamed Rule"
+            self.rule_list.append(rule)  # Speichere das Regelobjekt selbst
+    
         # Regeln nach Namen sortieren, um die Suchergebnisse hervorzuheben
-        self.rule_list.sort(key=lambda x: -x[0].lower().find(self.rule_lineEdit.text().lower()))
-
+        self.rule_list.sort(key=lambda x: x.label.first().lower())
+    
         # Liste aktualisieren
         self.updateRuleListWidget()
-
+    
+    
         self.test = "Test neu!"
         self.onto = onto
 
@@ -115,18 +95,18 @@ class SWRLRuleEditor(QMainWindow):
         self.updateRuleListWidget()
 
     def updateRuleListWidget(self):
-        # Liste leeren
         self.rule_listWidget.clear()
+        for rule in self.rule_list:
+            is_enabled = rule.isRuleEnabled.first() if rule.isRuleEnabled else False
+            widget_item = QtWidgets.QListWidgetItem(self.rule_listWidget)
+            item_widget = RuleWidgetItem(rule, is_enabled)
 
-        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
-        for rule_label, is_enabled in self.rule_list:
-            item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
-            item = QtWidgets.QListWidgetItem(item_text)
-            # Hervorhebung der Übereinstimmungen in hellblau
-            if self.rule_lineEdit.text().lower() in rule_label.lower():
-                item.setBackground(QtGui.QColor("lightblue"))
-            self.rule_listWidget.addItem(item)
+            if self.rule_lineEdit.text().lower() in rule.label.first().lower():
+                item_widget.setStyleSheet("background-color: lightblue;")
 
+            self.rule_listWidget.addItem(widget_item)
+            self.rule_listWidget.setItemWidget(widget_item, item_widget)
+            widget_item.setSizeHint(item_widget.sizeHint())
         
    
     def printClassTree(self, hierarchy_data):
@@ -273,6 +253,29 @@ class SecondWindow(QMainWindow):
                     widget.deleteLater()  # Löscht das Widget korrekt
                 line_layout.removeWidget(widget)
             self.verticalLayout.removeItem(line_layout)
+class RuleWidgetItem(QtWidgets.QWidget):
+    def __init__(self, rule, is_enabled):
+        super().__init__()
+        layout = QtWidgets.QHBoxLayout()
+        self.setLayout(layout)
+        self.rule = rule
+        self.checkbox = QtWidgets.QCheckBox()
+        self.checkbox.setChecked(is_enabled)
+        self.checkbox.stateChanged.connect(self.toggle_rule)
+        label = QtWidgets.QLabel(f"Regel: {rule.label.first()}")
+        layout.addWidget(label)
+        layout.addWidget(self.checkbox)
+
+    def toggle_rule(self, state):
+        new_state = state == QtCore.Qt.Checked
+        self.rule.isRuleEnabled = [new_state]
+        # Speichere die Ontologie in einer lokalen Datei, statt URL verwenden
+        self.save_ontology(self.rule.namespace.ontology)
+
+    def save_ontology(self, ontology):
+        # Stellen Sie sicher, dass der Pfad existiert und gültig ist
+        save_path = "Ontologien\ghibli.rdf"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrer Ontologie-Datei
+        ontology.save(file=save_path)
 
 
 def return_elements(entities):
