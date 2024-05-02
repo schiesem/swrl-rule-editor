@@ -53,7 +53,9 @@ class SWRLRuleEditor(QMainWindow):
         onto = get_ontology("file://" + file_path_save).load()
         print("The ontology has been loaded")                                       #testing
         
-        
+        # Regeln des ListWidgets löschen und Liste leeren
+        self.rule_listWidget.clear()
+        self.rule_list = []
 
         #Creates class-hierarchy
         self.treeOfClasses.clear()
@@ -68,30 +70,21 @@ class SWRLRuleEditor(QMainWindow):
         hierarchy_DataProperties_data = create_hierarchy(DataProperty)
         self.printDataTree(hierarchy_DataProperties_data)
 
-        # Regeln des ListWidgets löschen dafür Liste löschen
-        self.rule_list.clear()
+        
 
-                # Layout für die Anzeige der Regeln
-        y = 120  # Anfangsposition für y-Koordinate
-        for rule in onto.rules():
-            # Zugriff auf das swrl2:isRuleEnabled-Attribut
-            is_enabled = rule.isRuleEnabled.first()
-            # Zugriff auf das Label der Regel
-            rule_label = rule.label.first()
-            # Ausgabe des Labels und des Status der Regel
-            
-
-            print("Regel:", rule_label)
-            print("Aktiviert:", is_enabled)
-
-            self.rule_list.append((rule_label, is_enabled))
-
+            # Regeln hinzufügen
+        for rule in self.onto.rules():
+            is_enabled = rule.isRuleEnabled.first() if rule.isRuleEnabled else False
+            rule_label = rule.label.first() if rule.label else "Unnamed Rule"
+            self.rule_list.append(rule)  # Speichere das Regelobjekt selbst
+    
         # Regeln nach Namen sortieren, um die Suchergebnisse hervorzuheben
-        self.rule_list.sort(key=lambda x: -x[0].lower().find(self.rule_lineEdit.text().lower()))
-
+        self.rule_list.sort(key=lambda x: x.label.first().lower())
+    
         # Liste aktualisieren
         self.updateRuleListWidget()
-
+    
+    
         self.test = "Test neu!"
         self.onto = onto
 
@@ -101,20 +94,15 @@ class SWRLRuleEditor(QMainWindow):
         self.updateRuleListWidget()
 
     def updateRuleListWidget(self):
-        # Liste leeren
         self.rule_listWidget.clear()
-    
-        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
-        for rule_label, is_enabled in self.rule_list:
-            # Erstellen einer benutzerdefinierten Listenelement-Instanz
+        for rule in self.rule_list:
+            is_enabled = rule.isRuleEnabled.first() if rule.isRuleEnabled else False
             widget_item = QtWidgets.QListWidgetItem(self.rule_listWidget)
-            item_widget = RuleWidgetItem(rule_label, is_enabled)
-            
-            # Hervorhebung der Übereinstimmungen in hellblau
-            if self.rule_lineEdit.text().lower() in rule_label.lower():
+            item_widget = RuleWidgetItem(rule, is_enabled)
+
+            if self.rule_lineEdit.text().lower() in rule.label.first().lower():
                 item_widget.setStyleSheet("background-color: lightblue;")
-                
-            # Widget zum QListWidgetItem hinzufügen
+
             self.rule_listWidget.addItem(widget_item)
             self.rule_listWidget.setItemWidget(widget_item, item_widget)
             widget_item.setSizeHint(item_widget.sizeHint())
@@ -210,31 +198,28 @@ class SecondWindow(QMainWindow):
         self.show()
  
 class RuleWidgetItem(QtWidgets.QWidget):
-    def __init__(self, rule_label, is_enabled):
+    def __init__(self, rule, is_enabled):
         super().__init__()
         layout = QtWidgets.QHBoxLayout()
         self.setLayout(layout)
-
-        self.rule_label = rule_label
-        self.is_enabled = is_enabled
+        self.rule = rule
         self.checkbox = QtWidgets.QCheckBox()
         self.checkbox.setChecked(is_enabled)
         self.checkbox.stateChanged.connect(self.toggle_rule)
-
-        label = QtWidgets.QLabel(f"Regel: {rule_label}")
+        label = QtWidgets.QLabel(f"Regel: {rule.label.first()}")
         layout.addWidget(label)
         layout.addWidget(self.checkbox)
 
     def toggle_rule(self, state):
         new_state = state == QtCore.Qt.Checked
-        # Ändere den Wert von is_enabled entsprechend dem neuen Status der Checkbox
-        self.is_enabled = new_state
+        self.rule.isRuleEnabled = [new_state]
+        # Speichere die Ontologie in einer lokalen Datei, statt URL verwenden
+        self.save_ontology(self.rule.namespace.ontology)
 
-        # Hintergrundfarbe des Widgets ändern basierend auf dem Status der Checkbox
-        if new_state:
-            self.setStyleSheet("background-color: lightblue;")
-        else:
-            self.setStyleSheet("")  # Setze den Hintergrund auf den Standardwert
+    def save_ontology(self, ontology):
+        # Stellen Sie sicher, dass der Pfad existiert und gültig ist
+        save_path = "Ontologien\ghibli.rdf"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrer Ontologie-Datei
+        ontology.save(file=save_path)
 
 
 def return_elements(entities):

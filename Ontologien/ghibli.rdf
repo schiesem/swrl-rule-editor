@@ -9,7 +9,7 @@
          xmlns:swrl2="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
 
 <owl:Ontology rdf:about="http://www.semanticweb.org/testRegeln">
-  <rdfs:comment>Folgende Regeln sind hier direkt implementiert:
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Folgende Regeln sind hier direkt implementiert:
 -SWRL: Direkte Verbindungen (Assignment, Communication, Productflow)
 -SWRL: Hinreichende Bedingung für CLoudFully und EdgeFully (Achtung Individuum von AI System nötig)</rdfs:comment>
 </owl:Ontology>
@@ -99,6 +99,26 @@
   <rdfs:subClassOf rdf:resource="#SystemComponent"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SystemElement">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#isPartOf"/>
+      <owl:someValuesFrom rdf:resource="#AiSystem"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#AiSystem">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#composesOf"/>
+      <owl:onClass rdf:resource="#SystemElement"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <owl:disjointWith rdf:resource="#SystemElement"/>
+</owl:Class>
+
 <owl:Class rdf:about="#Product">
   <rdfs:subClassOf rdf:resource="#SystemComponent"/>
   <rdfs:subClassOf>
@@ -156,17 +176,6 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Communication">
-  <rdfs:subClassOf rdf:resource="#SystemRelation"/>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#hasCommunicationComponent"/>
-      <owl:onClass rdf:resource="#SystemComponent"/>
-      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-</owl:Class>
-
 <owl:Class rdf:about="#Assignment">
   <rdfs:subClassOf rdf:resource="#SystemRelation"/>
   <rdfs:subClassOf>
@@ -185,6 +194,17 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#Communication">
+  <rdfs:subClassOf rdf:resource="#SystemRelation"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasCommunicationComponent"/>
+      <owl:onClass rdf:resource="#SystemComponent"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
 <owl:Class rdf:about="#Transform">
   <rdfs:subClassOf rdf:resource="#SystemFunction"/>
   <rdfs:subClassOf>
@@ -196,32 +216,12 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#SystemElement">
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#isPartOf"/>
-      <owl:someValuesFrom rdf:resource="#AiSystem"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-</owl:Class>
-
-<owl:Class rdf:about="#AiSystem">
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#composesOf"/>
-      <owl:onClass rdf:resource="#SystemElement"/>
-      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <owl:disjointWith rdf:resource="#SystemElement"/>
+<owl:Class rdf:about="#SystemRelation">
+  <rdfs:subClassOf rdf:resource="#SystemElement"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Actuator">
   <rdfs:subClassOf rdf:resource="#TechnicalResource"/>
-</owl:Class>
-
-<owl:Class rdf:about="#SystemRelation">
-  <rdfs:subClassOf rdf:resource="#SystemElement"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Automate">
@@ -302,58 +302,12 @@
 
 <swrl:Variable rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
 
-<owl:AllDifferent>
-  <owl:distinctMembers rdf:parseType="Collection">
-    <rdf:Description rdf:about="#MyAiSystem"/>
-    <rdf:Description rdf:about="#homoshit"/>
-  </owl:distinctMembers>
-</owl:AllDifferent>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Actuator"/>
-    <rdf:Description rdf:about="#CloudSystem"/>
-    <rdf:Description rdf:about="#ComputerSystem"/>
-    <rdf:Description rdf:about="#Controller"/>
-    <rdf:Description rdf:about="#EdgeDevice"/>
-    <rdf:Description rdf:about="#Sensor"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Assignment"/>
-    <rdf:Description rdf:about="#Communication"/>
-    <rdf:Description rdf:about="#ProductFlow"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Automate"/>
-    <rdf:Description rdf:about="#Inference"/>
-    <rdf:Description rdf:about="#Process"/>
-    <rdf:Description rdf:about="#Record"/>
-    <rdf:Description rdf:about="#Store"/>
-    <rdf:Description rdf:about="#Train"/>
-    <rdf:Description rdf:about="#Transform"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#SystemComponent"/>
-    <rdf:Description rdf:about="#SystemFunction"/>
-    <rdf:Description rdf:about="#SystemRelation"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
 <swrl:Imp>
   <swrl:body>
     <swrl:AtomList>
       <rdf:first>
         <swrl:ClassAtom>
-          <swrl:classPredicate rdf:resource="#SystemComponent"/>
+          <swrl:classPredicate rdf:resource="#SystemFunction"/>
           <swrl:argument1 rdf:resource="#A"/>
         </swrl:ClassAtom>
       </rdf:first>
@@ -361,126 +315,34 @@
         <swrl:AtomList>
           <rdf:first>
             <swrl:ClassAtom>
-              <swrl:classPredicate rdf:resource="#Communication"/>
-              <swrl:argument1 rdf:resource="#C"/>
-            </swrl:ClassAtom>
-          </rdf:first>
-          <rdf:rest>
-            <swrl:AtomList>
-              <rdf:first>
-                <swrl:DifferentIndividualsAtom>
-                  <swrl:argument1 rdf:resource="#A"/>
-                  <swrl:argument2 rdf:resource="#B"/>
-                </swrl:DifferentIndividualsAtom>
-              </rdf:first>
-              <rdf:rest>
-                <swrl:AtomList>
-                  <rdf:first>
-                    <swrl:IndividualPropertyAtom>
-                      <swrl:propertyPredicate rdf:resource="#hasCommunication"/>
-                      <swrl:argument1 rdf:resource="#B"/>
-                      <swrl:argument2 rdf:resource="#C"/>
-                    </swrl:IndividualPropertyAtom>
-                  </rdf:first>
-                  <rdf:rest>
-                    <swrl:AtomList>
-                      <rdf:first>
-                        <swrl:IndividualPropertyAtom>
-                          <swrl:propertyPredicate rdf:resource="#hasCommunication"/>
-                          <swrl:argument1 rdf:resource="#A"/>
-                          <swrl:argument2 rdf:resource="#C"/>
-                        </swrl:IndividualPropertyAtom>
-                      </rdf:first>
-                      <rdf:rest>
-                        <swrl:AtomList>
-                          <rdf:first>
-                            <swrl:ClassAtom>
-                              <swrl:classPredicate rdf:resource="#TechnicalResource"/>
-                              <swrl:argument1 rdf:resource="#B"/>
-                            </swrl:ClassAtom>
-                          </rdf:first>
-                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                        </swrl:AtomList>
-                      </rdf:rest>
-                    </swrl:AtomList>
-                  </rdf:rest>
-                </swrl:AtomList>
-              </rdf:rest>
-            </swrl:AtomList>
-          </rdf:rest>
-        </swrl:AtomList>
-      </rdf:rest>
-    </swrl:AtomList>
-  </swrl:body>
-  <swrl:head>
-    <swrl:AtomList>
-      <rdf:first>
-        <swrl:IndividualPropertyAtom>
-          <swrl:propertyPredicate rdf:resource="#communicatesWith"/>
-          <swrl:argument1 rdf:resource="#A"/>
-          <swrl:argument2 rdf:resource="#B"/>
-        </swrl:IndividualPropertyAtom>
-      </rdf:first>
-      <rdf:rest>
-        <swrl:AtomList>
-          <rdf:first>
-            <swrl:IndividualPropertyAtom>
-              <swrl:propertyPredicate rdf:resource="#communicatesWith"/>
+              <swrl:classPredicate rdf:resource="#Assignment"/>
               <swrl:argument1 rdf:resource="#B"/>
-              <swrl:argument2 rdf:resource="#A"/>
-            </swrl:IndividualPropertyAtom>
-          </rdf:first>
-          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        </swrl:AtomList>
-      </rdf:rest>
-    </swrl:AtomList>
-  </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten Communication</rdfs:label>
-</swrl:Imp>
-
-<swrl:Imp>
-  <swrl:body>
-    <swrl:AtomList>
-      <rdf:first>
-        <swrl:ClassAtom>
-          <swrl:classPredicate rdf:resource="#Product"/>
-          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
-        </swrl:ClassAtom>
-      </rdf:first>
-      <rdf:rest>
-        <swrl:AtomList>
-          <rdf:first>
-            <swrl:ClassAtom>
-              <swrl:classPredicate rdf:resource="#ProductFlow"/>
-              <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
             </swrl:ClassAtom>
           </rdf:first>
           <rdf:rest>
             <swrl:AtomList>
               <rdf:first>
                 <swrl:IndividualPropertyAtom>
-                  <swrl:propertyPredicate rdf:resource="#isFlowing"/>
-                  <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
-                  <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+                  <swrl:propertyPredicate rdf:resource="#hasSystemFunctionAssignment"/>
+                  <swrl:argument1 rdf:resource="#A"/>
+                  <swrl:argument2 rdf:resource="#B"/>
                 </swrl:IndividualPropertyAtom>
               </rdf:first>
               <rdf:rest>
                 <swrl:AtomList>
                   <rdf:first>
                     <swrl:ClassAtom>
-                      <swrl:classPredicate rdf:resource="#Transform"/>
-                      <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+                      <swrl:classPredicate rdf:resource="#SystemComponent"/>
+                      <swrl:argument1 rdf:resource="#C"/>
                     </swrl:ClassAtom>
                   </rdf:first>
                   <rdf:rest>
                     <swrl:AtomList>
                       <rdf:first>
                         <swrl:IndividualPropertyAtom>
-                          <swrl:propertyPredicate rdf:resource="#isTransformedBy"/>
-                          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
-                          <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+                          <swrl:propertyPredicate rdf:resource="#hasAssignmentComponent"/>
+                          <swrl:argument1 rdf:resource="#B"/>
+                          <swrl:argument2 rdf:resource="#C"/>
                         </swrl:IndividualPropertyAtom>
                       </rdf:first>
                       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
@@ -498,171 +360,17 @@
     <swrl:AtomList>
       <rdf:first>
         <swrl:IndividualPropertyAtom>
-          <swrl:propertyPredicate rdf:resource="#isBeingProcessedWith"/>
-          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
-          <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
+          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+          <swrl:argument1 rdf:resource="#C"/>
+          <swrl:argument2 rdf:resource="#A"/>
         </swrl:IndividualPropertyAtom>
       </rdf:first>
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten ProductFlow</rdfs:label>
-</swrl:Imp>
-
-<swrl:Imp>
-  <swrl:body>
-    <swrl:AtomList>
-      <rdf:first>
-        <swrl:ClassAtom>
-          <swrl:classPredicate rdf:resource="#AiSystem"/>
-          <swrl:argument1 rdf:resource="#A"/>
-        </swrl:ClassAtom>
-      </rdf:first>
-      <rdf:rest>
-        <swrl:AtomList>
-          <rdf:first>
-            <swrl:ClassAtom>
-              <swrl:classPredicate rdf:resource="#CloudSystem"/>
-              <swrl:argument1 rdf:resource="#CS"/>
-            </swrl:ClassAtom>
-          </rdf:first>
-          <rdf:rest>
-            <swrl:AtomList>
-              <rdf:first>
-                <swrl:ClassAtom>
-                  <swrl:classPredicate rdf:resource="#Train"/>
-                  <swrl:argument1 rdf:resource="#T"/>
-                </swrl:ClassAtom>
-              </rdf:first>
-              <rdf:rest>
-                <swrl:AtomList>
-                  <rdf:first>
-                    <swrl:ClassAtom>
-                      <swrl:classPredicate rdf:resource="#Store"/>
-                      <swrl:argument1 rdf:resource="#S"/>
-                    </swrl:ClassAtom>
-                  </rdf:first>
-                  <rdf:rest>
-                    <swrl:AtomList>
-                      <rdf:first>
-                        <swrl:ClassAtom>
-                          <swrl:classPredicate rdf:resource="#Process"/>
-                          <swrl:argument1 rdf:resource="#P1"/>
-                        </swrl:ClassAtom>
-                      </rdf:first>
-                      <rdf:rest>
-                        <swrl:AtomList>
-                          <rdf:first>
-                            <swrl:ClassAtom>
-                              <swrl:classPredicate rdf:resource="#Process"/>
-                              <swrl:argument1 rdf:resource="#P2"/>
-                            </swrl:ClassAtom>
-                          </rdf:first>
-                          <rdf:rest>
-                            <swrl:AtomList>
-                              <rdf:first>
-                                <swrl:DifferentIndividualsAtom>
-                                  <swrl:argument1 rdf:resource="#P1"/>
-                                  <swrl:argument2 rdf:resource="#P2"/>
-                                </swrl:DifferentIndividualsAtom>
-                              </rdf:first>
-                              <rdf:rest>
-                                <swrl:AtomList>
-                                  <rdf:first>
-                                    <swrl:ClassAtom>
-                                      <swrl:classPredicate rdf:resource="#Inference"/>
-                                      <swrl:argument1 rdf:resource="#I"/>
-                                    </swrl:ClassAtom>
-                                  </rdf:first>
-                                  <rdf:rest>
-                                    <swrl:AtomList>
-                                      <rdf:first>
-                                        <swrl:IndividualPropertyAtom>
-                                          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-                                          <swrl:argument1 rdf:resource="#CS"/>
-                                          <swrl:argument2 rdf:resource="#T"/>
-                                        </swrl:IndividualPropertyAtom>
-                                      </rdf:first>
-                                      <rdf:rest>
-                                        <swrl:AtomList>
-                                          <rdf:first>
-                                            <swrl:IndividualPropertyAtom>
-                                              <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-                                              <swrl:argument1 rdf:resource="#CS"/>
-                                              <swrl:argument2 rdf:resource="#S"/>
-                                            </swrl:IndividualPropertyAtom>
-                                          </rdf:first>
-                                          <rdf:rest>
-                                            <swrl:AtomList>
-                                              <rdf:first>
-                                                <swrl:IndividualPropertyAtom>
-                                                  <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-                                                  <swrl:argument1 rdf:resource="#CS"/>
-                                                  <swrl:argument2 rdf:resource="#P1"/>
-                                                </swrl:IndividualPropertyAtom>
-                                              </rdf:first>
-                                              <rdf:rest>
-                                                <swrl:AtomList>
-                                                  <rdf:first>
-                                                    <swrl:IndividualPropertyAtom>
-                                                      <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-                                                      <swrl:argument1 rdf:resource="#CS"/>
-                                                      <swrl:argument2 rdf:resource="#P2"/>
-                                                    </swrl:IndividualPropertyAtom>
-                                                  </rdf:first>
-                                                  <rdf:rest>
-                                                    <swrl:AtomList>
-                                                      <rdf:first>
-                                                        <swrl:IndividualPropertyAtom>
-                                                          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-                                                          <swrl:argument1 rdf:resource="#CS"/>
-                                                          <swrl:argument2 rdf:resource="#I"/>
-                                                        </swrl:IndividualPropertyAtom>
-                                                      </rdf:first>
-                                                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                    </swrl:AtomList>
-                                                  </rdf:rest>
-                                                </swrl:AtomList>
-                                              </rdf:rest>
-                                            </swrl:AtomList>
-                                          </rdf:rest>
-                                        </swrl:AtomList>
-                                      </rdf:rest>
-                                    </swrl:AtomList>
-                                  </rdf:rest>
-                                </swrl:AtomList>
-                              </rdf:rest>
-                            </swrl:AtomList>
-                          </rdf:rest>
-                        </swrl:AtomList>
-                      </rdf:rest>
-                    </swrl:AtomList>
-                  </rdf:rest>
-                </swrl:AtomList>
-              </rdf:rest>
-            </swrl:AtomList>
-          </rdf:rest>
-        </swrl:AtomList>
-      </rdf:rest>
-    </swrl:AtomList>
-  </swrl:body>
-  <swrl:head>
-    <swrl:AtomList>
-      <rdf:first>
-        <swrl:DatavaluedPropertyAtom>
-          <swrl:propertyPredicate rdf:resource="#ErfuelltHinreichendeBedingungFuer"/>
-          <swrl:argument1 rdf:resource="#A"/>
-          <swrl:argument2>CloudFully</swrl:argument2>
-        </swrl:DatavaluedPropertyAtom>
-      </rdf:first>
-      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    </swrl:AtomList>
-  </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
-  <rdfs:label>CloudFully Hinreichende Bedingung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Zuweisung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -808,15 +516,15 @@
         <swrl:DatavaluedPropertyAtom>
           <swrl:propertyPredicate rdf:resource="#ErfuelltHinreichendeBedingungFuer"/>
           <swrl:argument1 rdf:resource="#A"/>
-          <swrl:argument2>EdgeFully</swrl:argument2>
+          <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EdgeFully</swrl:argument2>
         </swrl:DatavaluedPropertyAtom>
       </rdf:first>
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
-  <rdfs:label>EdgeFully Hinreichende Bedingung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EdgeFully Hinreichende Bedingung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -824,7 +532,7 @@
     <swrl:AtomList>
       <rdf:first>
         <swrl:ClassAtom>
-          <swrl:classPredicate rdf:resource="#SystemFunction"/>
+          <swrl:classPredicate rdf:resource="#AiSystem"/>
           <swrl:argument1 rdf:resource="#A"/>
         </swrl:ClassAtom>
       </rdf:first>
@@ -832,34 +540,188 @@
         <swrl:AtomList>
           <rdf:first>
             <swrl:ClassAtom>
-              <swrl:classPredicate rdf:resource="#Assignment"/>
-              <swrl:argument1 rdf:resource="#B"/>
+              <swrl:classPredicate rdf:resource="#CloudSystem"/>
+              <swrl:argument1 rdf:resource="#CS"/>
+            </swrl:ClassAtom>
+          </rdf:first>
+          <rdf:rest>
+            <swrl:AtomList>
+              <rdf:first>
+                <swrl:ClassAtom>
+                  <swrl:classPredicate rdf:resource="#Train"/>
+                  <swrl:argument1 rdf:resource="#T"/>
+                </swrl:ClassAtom>
+              </rdf:first>
+              <rdf:rest>
+                <swrl:AtomList>
+                  <rdf:first>
+                    <swrl:ClassAtom>
+                      <swrl:classPredicate rdf:resource="#Store"/>
+                      <swrl:argument1 rdf:resource="#S"/>
+                    </swrl:ClassAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <swrl:AtomList>
+                      <rdf:first>
+                        <swrl:ClassAtom>
+                          <swrl:classPredicate rdf:resource="#Process"/>
+                          <swrl:argument1 rdf:resource="#P1"/>
+                        </swrl:ClassAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <swrl:AtomList>
+                          <rdf:first>
+                            <swrl:ClassAtom>
+                              <swrl:classPredicate rdf:resource="#Process"/>
+                              <swrl:argument1 rdf:resource="#P2"/>
+                            </swrl:ClassAtom>
+                          </rdf:first>
+                          <rdf:rest>
+                            <swrl:AtomList>
+                              <rdf:first>
+                                <swrl:DifferentIndividualsAtom>
+                                  <swrl:argument1 rdf:resource="#P1"/>
+                                  <swrl:argument2 rdf:resource="#P2"/>
+                                </swrl:DifferentIndividualsAtom>
+                              </rdf:first>
+                              <rdf:rest>
+                                <swrl:AtomList>
+                                  <rdf:first>
+                                    <swrl:ClassAtom>
+                                      <swrl:classPredicate rdf:resource="#Inference"/>
+                                      <swrl:argument1 rdf:resource="#I"/>
+                                    </swrl:ClassAtom>
+                                  </rdf:first>
+                                  <rdf:rest>
+                                    <swrl:AtomList>
+                                      <rdf:first>
+                                        <swrl:IndividualPropertyAtom>
+                                          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+                                          <swrl:argument1 rdf:resource="#CS"/>
+                                          <swrl:argument2 rdf:resource="#T"/>
+                                        </swrl:IndividualPropertyAtom>
+                                      </rdf:first>
+                                      <rdf:rest>
+                                        <swrl:AtomList>
+                                          <rdf:first>
+                                            <swrl:IndividualPropertyAtom>
+                                              <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+                                              <swrl:argument1 rdf:resource="#CS"/>
+                                              <swrl:argument2 rdf:resource="#S"/>
+                                            </swrl:IndividualPropertyAtom>
+                                          </rdf:first>
+                                          <rdf:rest>
+                                            <swrl:AtomList>
+                                              <rdf:first>
+                                                <swrl:IndividualPropertyAtom>
+                                                  <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+                                                  <swrl:argument1 rdf:resource="#CS"/>
+                                                  <swrl:argument2 rdf:resource="#P1"/>
+                                                </swrl:IndividualPropertyAtom>
+                                              </rdf:first>
+                                              <rdf:rest>
+                                                <swrl:AtomList>
+                                                  <rdf:first>
+                                                    <swrl:IndividualPropertyAtom>
+                                                      <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+                                                      <swrl:argument1 rdf:resource="#CS"/>
+                                                      <swrl:argument2 rdf:resource="#P2"/>
+                                                    </swrl:IndividualPropertyAtom>
+                                                  </rdf:first>
+                                                  <rdf:rest>
+                                                    <swrl:AtomList>
+                                                      <rdf:first>
+                                                        <swrl:IndividualPropertyAtom>
+                                                          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
+                                                          <swrl:argument1 rdf:resource="#CS"/>
+                                                          <swrl:argument2 rdf:resource="#I"/>
+                                                        </swrl:IndividualPropertyAtom>
+                                                      </rdf:first>
+                                                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </swrl:AtomList>
+                                                  </rdf:rest>
+                                                </swrl:AtomList>
+                                              </rdf:rest>
+                                            </swrl:AtomList>
+                                          </rdf:rest>
+                                        </swrl:AtomList>
+                                      </rdf:rest>
+                                    </swrl:AtomList>
+                                  </rdf:rest>
+                                </swrl:AtomList>
+                              </rdf:rest>
+                            </swrl:AtomList>
+                          </rdf:rest>
+                        </swrl:AtomList>
+                      </rdf:rest>
+                    </swrl:AtomList>
+                  </rdf:rest>
+                </swrl:AtomList>
+              </rdf:rest>
+            </swrl:AtomList>
+          </rdf:rest>
+        </swrl:AtomList>
+      </rdf:rest>
+    </swrl:AtomList>
+  </swrl:body>
+  <swrl:head>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:propertyPredicate rdf:resource="#ErfuelltHinreichendeBedingungFuer"/>
+          <swrl:argument1 rdf:resource="#A"/>
+          <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CloudFully</swrl:argument2>
+        </swrl:DatavaluedPropertyAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </swrl:AtomList>
+  </swrl:head>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CloudFully Hinreichende Bedingung</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
+</swrl:Imp>
+
+<swrl:Imp>
+  <swrl:body>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Product"/>
+          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <swrl:AtomList>
+          <rdf:first>
+            <swrl:ClassAtom>
+              <swrl:classPredicate rdf:resource="#ProductFlow"/>
+              <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
             </swrl:ClassAtom>
           </rdf:first>
           <rdf:rest>
             <swrl:AtomList>
               <rdf:first>
                 <swrl:IndividualPropertyAtom>
-                  <swrl:propertyPredicate rdf:resource="#hasSystemFunctionAssignment"/>
-                  <swrl:argument1 rdf:resource="#A"/>
-                  <swrl:argument2 rdf:resource="#B"/>
+                  <swrl:propertyPredicate rdf:resource="#isFlowing"/>
+                  <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
+                  <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
                 </swrl:IndividualPropertyAtom>
               </rdf:first>
               <rdf:rest>
                 <swrl:AtomList>
                   <rdf:first>
                     <swrl:ClassAtom>
-                      <swrl:classPredicate rdf:resource="#SystemComponent"/>
-                      <swrl:argument1 rdf:resource="#C"/>
+                      <swrl:classPredicate rdf:resource="#Transform"/>
+                      <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
                     </swrl:ClassAtom>
                   </rdf:first>
                   <rdf:rest>
                     <swrl:AtomList>
                       <rdf:first>
                         <swrl:IndividualPropertyAtom>
-                          <swrl:propertyPredicate rdf:resource="#hasAssignmentComponent"/>
-                          <swrl:argument1 rdf:resource="#B"/>
-                          <swrl:argument2 rdf:resource="#C"/>
+                          <swrl:propertyPredicate rdf:resource="#isTransformedBy"/>
+                          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
+                          <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
                         </swrl:IndividualPropertyAtom>
                       </rdf:first>
                       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
@@ -877,18 +739,156 @@
     <swrl:AtomList>
       <rdf:first>
         <swrl:IndividualPropertyAtom>
-          <swrl:propertyPredicate rdf:resource="#hasAssignment"/>
-          <swrl:argument1 rdf:resource="#C"/>
-          <swrl:argument2 rdf:resource="#A"/>
+          <swrl:propertyPredicate rdf:resource="#isBeingProcessedWith"/>
+          <swrl:argument1 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#A"/>
+          <swrl:argument2 rdf:resource="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
         </swrl:IndividualPropertyAtom>
       </rdf:first>
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
-  <rdfs:comment>Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
-  <rdfs:label>Direkte Beziehung ableiten Zuweisung</rdfs:label>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten ProductFlow</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
+
+<swrl:Imp>
+  <swrl:body>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#SystemComponent"/>
+          <swrl:argument1 rdf:resource="#A"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <swrl:AtomList>
+          <rdf:first>
+            <swrl:ClassAtom>
+              <swrl:classPredicate rdf:resource="#Communication"/>
+              <swrl:argument1 rdf:resource="#C"/>
+            </swrl:ClassAtom>
+          </rdf:first>
+          <rdf:rest>
+            <swrl:AtomList>
+              <rdf:first>
+                <swrl:DifferentIndividualsAtom>
+                  <swrl:argument1 rdf:resource="#A"/>
+                  <swrl:argument2 rdf:resource="#B"/>
+                </swrl:DifferentIndividualsAtom>
+              </rdf:first>
+              <rdf:rest>
+                <swrl:AtomList>
+                  <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                      <swrl:propertyPredicate rdf:resource="#hasCommunication"/>
+                      <swrl:argument1 rdf:resource="#B"/>
+                      <swrl:argument2 rdf:resource="#C"/>
+                    </swrl:IndividualPropertyAtom>
+                  </rdf:first>
+                  <rdf:rest>
+                    <swrl:AtomList>
+                      <rdf:first>
+                        <swrl:IndividualPropertyAtom>
+                          <swrl:propertyPredicate rdf:resource="#hasCommunication"/>
+                          <swrl:argument1 rdf:resource="#A"/>
+                          <swrl:argument2 rdf:resource="#C"/>
+                        </swrl:IndividualPropertyAtom>
+                      </rdf:first>
+                      <rdf:rest>
+                        <swrl:AtomList>
+                          <rdf:first>
+                            <swrl:ClassAtom>
+                              <swrl:classPredicate rdf:resource="#TechnicalResource"/>
+                              <swrl:argument1 rdf:resource="#B"/>
+                            </swrl:ClassAtom>
+                          </rdf:first>
+                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                        </swrl:AtomList>
+                      </rdf:rest>
+                    </swrl:AtomList>
+                  </rdf:rest>
+                </swrl:AtomList>
+              </rdf:rest>
+            </swrl:AtomList>
+          </rdf:rest>
+        </swrl:AtomList>
+      </rdf:rest>
+    </swrl:AtomList>
+  </swrl:body>
+  <swrl:head>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:propertyPredicate rdf:resource="#communicatesWith"/>
+          <swrl:argument1 rdf:resource="#A"/>
+          <swrl:argument2 rdf:resource="#B"/>
+        </swrl:IndividualPropertyAtom>
+      </rdf:first>
+      <rdf:rest>
+        <swrl:AtomList>
+          <rdf:first>
+            <swrl:IndividualPropertyAtom>
+              <swrl:propertyPredicate rdf:resource="#communicatesWith"/>
+              <swrl:argument1 rdf:resource="#B"/>
+              <swrl:argument2 rdf:resource="#A"/>
+            </swrl:IndividualPropertyAtom>
+          </rdf:first>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </swrl:AtomList>
+      </rdf:rest>
+    </swrl:AtomList>
+  </swrl:head>
+  <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Communication</rdfs:label>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
+</swrl:Imp>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#SystemComponent"/>
+    <rdf:Description rdf:about="#SystemFunction"/>
+    <rdf:Description rdf:about="#SystemRelation"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Automate"/>
+    <rdf:Description rdf:about="#Inference"/>
+    <rdf:Description rdf:about="#Process"/>
+    <rdf:Description rdf:about="#Record"/>
+    <rdf:Description rdf:about="#Store"/>
+    <rdf:Description rdf:about="#Train"/>
+    <rdf:Description rdf:about="#Transform"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Assignment"/>
+    <rdf:Description rdf:about="#Communication"/>
+    <rdf:Description rdf:about="#ProductFlow"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Actuator"/>
+    <rdf:Description rdf:about="#CloudSystem"/>
+    <rdf:Description rdf:about="#ComputerSystem"/>
+    <rdf:Description rdf:about="#Controller"/>
+    <rdf:Description rdf:about="#EdgeDevice"/>
+    <rdf:Description rdf:about="#Sensor"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDifferent>
+  <owl:distinctMembers rdf:parseType="Collection">
+    <rdf:Description rdf:about="#MyAiSystem"/>
+    <rdf:Description rdf:about="#homoshit"/>
+  </owl:distinctMembers>
+</owl:AllDifferent>
 
 
 </rdf:RDF>
