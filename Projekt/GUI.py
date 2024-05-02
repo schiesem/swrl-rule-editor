@@ -5,9 +5,9 @@ from owlready2 import *
 import owlready2
 from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton, QLabel
 from PyQt5.QtCore import Qt
-import sip
+
 
 #Main Window
 class SWRLRuleEditor(QMainWindow):
@@ -17,8 +17,8 @@ class SWRLRuleEditor(QMainWindow):
         uic.loadUi("Projekt\MainWindow.ui", self)
         self.show()
         ontology_names = list_files_in_folder("Ontologien")
-        self.comboBoxOntologies.addItem("none")
         self.comboBoxOntologies.addItems(ontology_names)
+        self.comboBoxOntologies.setCurrentIndex(-1)
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
         self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
         self.pushButton.clicked.connect(self.open_second_window)
@@ -70,7 +70,6 @@ class SWRLRuleEditor(QMainWindow):
         self.treeOfDataProperties.clear()
         hierarchy_DataProperties_data = create_hierarchy(DataProperty)
         self.printDataTree(hierarchy_DataProperties_data)
-
         
 
             # Regeln hinzufügen
@@ -88,6 +87,7 @@ class SWRLRuleEditor(QMainWindow):
     
         self.test = "Test neu!"
         self.onto = onto
+
 
     def search_rules(self, text):
         # Regeln nach Namen sortieren und Liste aktualisieren
@@ -188,54 +188,92 @@ class SWRLRuleEditor(QMainWindow):
         self.treeOfDataProperties.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
     def open_second_window(self):
-        self.second_window = SecondWindow()
+        listOfClasses = return_elements(self.onto.classes())
+        listOfProperties = return_elements(self.onto.properties())
+        OntologyName = self.comboBoxOntologies.currentText()
+        self.second_window = SecondWindow(OntologyName, listOfClasses, listOfProperties)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, OntologyName, listOfClasses, listOfProperties ):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
- 
+
         self.lines = []  # Liste zum Speichern der Linienlayouts
         self.lines_2 = []  # Falls Sie zwei verschiedene Layouts haben
  
-        self.add_line()
-        self.add_line_2()
-        self.AddLine.clicked.connect(self.add_line)
-        self.AddLine_2.clicked.connect(self.add_line_2)
+        self.Label_selectedOntology.setText(OntologyName)
+
+        self.add_line(listOfClasses, listOfProperties)
+        self.add_line_2(listOfClasses, listOfProperties)
+        self.AddLine.clicked.connect(lambda: self.add_line(listOfClasses, listOfProperties))
+        self.AddLine_2.clicked.connect(lambda: self.add_line_2(listOfClasses, listOfProperties))
         self.RemoveLine.clicked.connect(self.remove_line)
         self.RemoveLine_2.clicked.connect(self.remove_line_2)
  
  
  
-    def add_line(self):
-        line_layout = QHBoxLayout()
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QLineEdit())
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QLineEdit())
+    def add_line(self, listOfClasses, listOfProperties):        #add lines on premise side
+        line_layout = QHBoxLayout()        #create line
+
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass1)
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        line_layout.addWidget(qlineeditVar1)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfProperties)
+        comboboxProperty.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxProperty)
+
+        comboboxClass2 = QComboBox()        #create combobox for class2
+        comboboxClass2.addItems(listOfClasses)
+        comboboxClass2.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass2)
+
+        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Class2
+        line_layout.addWidget(qlineeditVar2)
  
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
-        self.lines.append(line_layout)
+        self.lines.append(line_layout)      #add line to vertical layout
  
-    def add_line_2(self):
-        line_layout = QHBoxLayout()
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QLineEdit())
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QComboBox())
-        line_layout.addWidget(QLineEdit())
+
+    def add_line_2(self, listOfClasses, listOfProperties):      #add lines on conclusion side
+        line_layout = QHBoxLayout()        #create line
+
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass1)
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        line_layout.addWidget(qlineeditVar1)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfProperties)
+        comboboxProperty.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxProperty)
+
+        comboboxClass2 = QComboBox()        #create combobox for class2
+        comboboxClass2.addItems(listOfClasses)
+        comboboxClass2.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass2)
+
+        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Class2
+        line_layout.addWidget(qlineeditVar2)
  
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
-        self.lines_2.append(line_layout)
+        self.lines_2.append(line_layout)      #add line to vertical layout
  
     def remove_line(self):
-        if self.lines:
+        if len(self.lines) > 1:
             line_layout = self.lines.pop()  # Letztes Layout aus der Liste entfernen
             for i in reversed(range(line_layout.count())):
                 widget = line_layout.itemAt(i).widget()
@@ -245,7 +283,7 @@ class SecondWindow(QMainWindow):
             self.verticalLayout.removeItem(line_layout)
 
     def remove_line_2(self):
-        if self.lines_2:
+        if len(self.lines_2) > 1:
             line_layout = self.lines_2.pop()  # Letztes Layout aus der Liste entfernen
             for i in reversed(range(line_layout.count())):
                 widget = line_layout.itemAt(i).widget()
@@ -253,6 +291,7 @@ class SecondWindow(QMainWindow):
                     widget.deleteLater()  # Löscht das Widget korrekt
                 line_layout.removeWidget(widget)
             self.verticalLayout.removeItem(line_layout)
+
 class RuleWidgetItem(QtWidgets.QWidget):
     def __init__(self, rule, is_enabled):
         super().__init__()

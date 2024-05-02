@@ -272,7 +272,11 @@
   <rdf:type rdf:resource="#AiSystem"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#homoshit">
+<owl:NamedIndividual rdf:about="#Actuator1">
+  <rdf:type rdf:resource="#Actuator"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Sensor2">
   <rdf:type rdf:resource="#Sensor"/>
 </owl:NamedIndividual>
 
@@ -301,13 +305,6 @@
 <swrl:Variable rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#B"/>
 
 <swrl:Variable rdf:about="http://www.semanticweb.org/pauls/ontologies/2023/6/untitled-ontology-10#C"/>
-
-<owl:AllDifferent>
-  <owl:distinctMembers rdf:parseType="Collection">
-    <rdf:Description rdf:about="#MyAiSystem"/>
-    <rdf:Description rdf:about="#homoshit"/>
-  </owl:distinctMembers>
-</owl:AllDifferent>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
@@ -435,9 +432,9 @@
       </rdf:rest>
     </swrl:AtomList>
   </swrl:head>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Es wird eine Direkte Beziehung abgeleitet wenn: A mit B und B mit C in Beziehung steht -&gt; A mit C Beziehung</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Communication</rdfs:label>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -506,9 +503,9 @@
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Produkt wird mit Individuum von Transform direkt verbunden (über isBeingProcessedWith)</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten ProductFlow</rdfs:label>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -662,7 +659,7 @@
   </swrl:head>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für CloudFully erfüllt ist</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CloudFully Hinreichende Bedingung</rdfs:label>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -814,9 +811,9 @@
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Regel inferiert ein  Dataproperty für AI System, welches angibt dass die Bedingung für EdgeFully erfüllt ist</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EdgeFully Hinreichende Bedingung</rdfs:label>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 <swrl:Imp>
@@ -885,9 +882,9 @@
       <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
     </swrl:AtomList>
   </swrl:head>
+  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
   <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Assignments werden direkt den SystemComponenten zugeordnet &amp; anders herum</rdfs:comment>
   <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Direkte Beziehung ableiten Zuweisung</rdfs:label>
-  <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl2:isRuleEnabled>
 </swrl:Imp>
 
 
