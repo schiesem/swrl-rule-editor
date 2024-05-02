@@ -217,80 +217,51 @@ class SecondWindow(QMainWindow):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
-
+ 
+        self.lines = []  # Liste zum Speichern der Linienlayouts
+        self.lines_2 = []  # Falls Sie zwei verschiedene Layouts haben
+ 
         self.add_line()
         self.add_line_2()
         self.AddLine.clicked.connect(self.add_line)
         self.AddLine_2.clicked.connect(self.add_line_2)
         self.RemoveLine.clicked.connect(self.remove_line)
-
+ 
+ 
+ 
     def add_line(self):
-        # Create horizontal layout for line
         line_layout = QHBoxLayout()
-
-        count = self.verticalLayout.count()
-        print("count before adding line: " + str(count))
-        # Add Line Edits and Combo Boxes
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
-        
-        line_layout.setObjectName("line_layout_" + str(count))
-        print("added line: " + line_layout.objectName() + "at count: " + str(self.verticalLayout.count()))
-
-        # Add the horizontal layout to the vertical layout
+ 
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
-
-        
-
+        self.lines.append(line_layout)
+ 
     def add_line_2(self):
-        # Create horizontal layout for line
         line_layout = QHBoxLayout()
-
-        # Add Line Edits and Combo Boxes
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QComboBox())
         line_layout.addWidget(QLineEdit())
-        
-
-
-        # Add the horizontal layout to the vertical layout
+ 
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
-        
-        
-
-    '''def remove_line(self):                                      #not working properly.....................................................................................
-        count = self.verticalLayout.count()
-        print(count)
-        #if count == 1:
-        #    return
-        item = self.verticalLayout.itemAt(count - 2)
-        self.verticalLayout.removeItem(item)
-        self.verticalLayout.update() '''       
-
-    def remove_line(self):                                      #not working properly.....................................................................................
-            count = self.verticalLayout.count() #gibt anzahl an Elementen in VerticalLayout(gefüllten Zeilen) zurück
-            print("countbefore deleting: " + str(count))
-            if count == 1:
-                return
-            
-            item = self.verticalLayout.itemAt(count -1)  #letztes stelle wird ausgewählt (mit -1 letztes -> löschen funktioniert nicht)
-                                                         #""                             (mit -2 vorletztes -> löschen funktioniert manchmal)
-            
-            print("deleted item: " + item.objectName())
-            self.verticalLayout.removeItem(item)        #entfernt mit -2 manche, und mit -1 garnix visuell....
-            item.deleteLater()                          #soll auch aus arbeitsspeicher löschen, klappt auch nicht
-            print("Warum ist das itam noch da???: " + item.objectName()) # -> wird nicht aus arbeitsspeicher gelöscht
-            self.verticalLayout.update()        #auch update der GUI bringt nix
-            count = self.verticalLayout.count()     #count verringert sich, warum auch immer? obwohl nichts entfernt wird...
-            print("count after deleting: " + str(count) +"warum weniger obwohl das item nicht gelöscht wird?")
-
+        self.lines_2.append(line_layout)
+ 
+    def remove_line(self):
+        if self.lines:
+            line_layout = self.lines.pop()  # Letztes Layout aus der Liste entfernen
+            for i in reversed(range(line_layout.count())):
+                widget = line_layout.itemAt(i).widget()
+                if widget:
+                    widget.deleteLater()  # Löscht das Widget korrekt
+                line_layout.removeWidget(widget)
+            self.verticalLayout.removeItem(line_layout)
 
 
 def return_elements(entities):
