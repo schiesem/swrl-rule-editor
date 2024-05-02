@@ -101,17 +101,23 @@ class SWRLRuleEditor(QMainWindow):
         self.updateRuleListWidget()
 
     def updateRuleListWidget(self):
-       # Liste leeren
-       self.rule_listWidget.clear()
-   
-       # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
-       for rule_label, is_enabled in self.rule_list:
-           # Erstellen einer benutzerdefinierten Listenelement-Instanz
-           item = RuleWidgetItem(rule_label, is_enabled)
-           # Hervorhebung der Übereinstimmungen in hellblau
-           if self.rule_lineEdit.text().lower() in rule_label.lower():
-               item.setBackground(QtGui.QColor("lightblue"))
-           self.rule_listWidget.addItem(item)   
+        # Liste leeren
+        self.rule_listWidget.clear()
+    
+        # Durchsuche die sortierte Regel-Liste nach dem eingegebenen Text
+        for rule_label, is_enabled in self.rule_list:
+            # Erstellen einer benutzerdefinierten Listenelement-Instanz
+            widget_item = QtWidgets.QListWidgetItem(self.rule_listWidget)
+            item_widget = RuleWidgetItem(rule_label, is_enabled)
+            
+            # Hervorhebung der Übereinstimmungen in hellblau
+            if self.rule_lineEdit.text().lower() in rule_label.lower():
+                item_widget.setStyleSheet("background-color: lightblue;")
+                
+            # Widget zum QListWidgetItem hinzufügen
+            self.rule_listWidget.addItem(widget_item)
+            self.rule_listWidget.setItemWidget(widget_item, item_widget)
+            widget_item.setSizeHint(item_widget.sizeHint())
         
    
     def printClassTree(self, hierarchy_data):
@@ -203,21 +209,33 @@ class SecondWindow(QMainWindow):
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
  
-class RuleWidgetItem(QtWidgets.QListWidgetItem):
+class RuleWidgetItem(QtWidgets.QWidget):
     def __init__(self, rule_label, is_enabled):
-        super().__init__(f"Regel: {rule_label}\nAktiviert: {is_enabled}")
+        super().__init__()
+        layout = QtWidgets.QHBoxLayout()
+        self.setLayout(layout)
+
         self.rule_label = rule_label
         self.is_enabled = is_enabled
         self.checkbox = QtWidgets.QCheckBox()
         self.checkbox.setChecked(is_enabled)
         self.checkbox.stateChanged.connect(self.toggle_rule)
 
+        label = QtWidgets.QLabel(f"Regel: {rule_label}")
+        layout.addWidget(label)
+        layout.addWidget(self.checkbox)
+
     def toggle_rule(self, state):
         new_state = state == QtCore.Qt.Checked
-        # Führe hier den Code aus, um die Regel zu aktivieren/deaktivieren
+        # Ändere den Wert von is_enabled entsprechend dem neuen Status der Checkbox
         self.is_enabled = new_state
-        # aktualisiere die Anzeige
-        self.setText(f"Regel: {self.rule_label}\nAktiviert: {self.is_enabled}")
+
+        # Hintergrundfarbe des Widgets ändern basierend auf dem Status der Checkbox
+        if new_state:
+            self.setStyleSheet("background-color: lightblue;")
+        else:
+            self.setStyleSheet("")  # Setze den Hintergrund auf den Standardwert
+
 
 def return_elements(entities):
 
