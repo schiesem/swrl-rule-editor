@@ -226,6 +226,7 @@ class SecondWindow(QMainWindow):
         self.AddLine.clicked.connect(self.add_line)
         self.AddLine_2.clicked.connect(self.add_line_2)
         self.RemoveLine.clicked.connect(self.remove_line)
+        self.RemoveLine_2.clicked.connect(self.remove_line_2)
  
  
  
@@ -256,6 +257,16 @@ class SecondWindow(QMainWindow):
     def remove_line(self):
         if self.lines:
             line_layout = self.lines.pop()  # Letztes Layout aus der Liste entfernen
+            for i in reversed(range(line_layout.count())):
+                widget = line_layout.itemAt(i).widget()
+                if widget:
+                    widget.deleteLater()  # Löscht das Widget korrekt
+                line_layout.removeWidget(widget)
+            self.verticalLayout.removeItem(line_layout)
+
+    def remove_line_2(self):
+        if self.lines_2:
+            line_layout = self.lines_2.pop()  # Letztes Layout aus der Liste entfernen
             for i in reversed(range(line_layout.count())):
                 widget = line_layout.itemAt(i).widget()
                 if widget:
