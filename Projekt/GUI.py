@@ -200,7 +200,7 @@ class SecondWindow(QMainWindow):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
-
+    
         self.lines = []  # Liste zum Speichern der Linienlayouts
         self.lines_2 = []  # Falls Sie zwei verschiedene Layouts haben
  
