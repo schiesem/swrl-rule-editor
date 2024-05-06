@@ -69,7 +69,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButtonAddToOnto">
     <property name="geometry">
      <rect>
       <x>1250</x>
@@ -147,8 +147,8 @@
      <rect>
       <x>140</x>
       <y>10</y>
-      <width>47</width>
-      <height>14</height>
+      <width>181</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="font">
