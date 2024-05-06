@@ -6,7 +6,8 @@ import owlready2
 from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton, QLabel
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QStringListModel
+
 
 
 #Main Window
@@ -191,16 +192,21 @@ class SWRLRuleEditor(QMainWindow):
         listOfClasses = return_elements(self.onto.classes())
         listOfProperties = return_elements(self.onto.properties())
         OntologyName = self.comboBoxOntologies.currentText()
-        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfProperties)
+        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfProperties , self.rule_list)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self, OntologyName, onto, listOfClasses, listOfProperties ):
+    def __init__(self, OntologyName, onto, listOfClasses, listOfProperties , listOfRules):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
-    
+        self.OntologyName = OntologyName
+        self.listOfClasses = listOfClasses
+        self.listOfProperties = listOfProperties
+        self.listOfRules = listOfRules
+        self.initUI()
+
         self.lines = []  # Liste zum Speichern der Linienlayouts
         self.lines_2 = []  # Falls Sie zwei verschiedene Layouts haben
  
@@ -214,7 +220,20 @@ class SecondWindow(QMainWindow):
         self.RemoveLine_2.clicked.connect(self.remove_line_2)
         self.pushButtonAddToOnto.clicked.connect(lambda: self.add_to_onto_and_return(onto))
  
- 
+    def initUI(self):
+        # Konvertieren der Regelobjekte in eine Liste von Strings, die Regelnamen oder -beschreibungen enthalten
+        rule_descriptions = [rule.label.first() if rule.label else "Unnamed Rule" for rule in self.listOfRules]
+
+        # Erstellen eines QStringListModel für das ListView
+        self.model = QStringListModel(self)
+
+        # Daten in das Model setzen
+        self.model.setStringList(rule_descriptions)
+
+        # Setzen des Models auf das QListView
+        self.listViewRules.setModel(self.model)
+
+        self.show()
  
     def add_line(self, listOfClasses, listOfProperties):        #add lines on premise side
         line_layout = QHBoxLayout()        #create line
