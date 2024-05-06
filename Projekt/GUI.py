@@ -191,12 +191,12 @@ class SWRLRuleEditor(QMainWindow):
         listOfClasses = return_elements(self.onto.classes())
         listOfProperties = return_elements(self.onto.properties())
         OntologyName = self.comboBoxOntologies.currentText()
-        self.second_window = SecondWindow(OntologyName, listOfClasses, listOfProperties)
+        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfProperties)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self, OntologyName, listOfClasses, listOfProperties ):
+    def __init__(self, OntologyName, onto, listOfClasses, listOfProperties ):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
@@ -212,7 +212,7 @@ class SecondWindow(QMainWindow):
         self.AddLine_2.clicked.connect(lambda: self.add_line_2(listOfClasses, listOfProperties))
         self.RemoveLine.clicked.connect(self.remove_line)
         self.RemoveLine_2.clicked.connect(self.remove_line_2)
-        self.pushButtonAddToOnto.clicked.connect(self.add_to_onto_and_return)
+        self.pushButtonAddToOnto.clicked.connect(lambda: self.add_to_onto_and_return(onto))
  
  
  
@@ -292,9 +292,28 @@ class SecondWindow(QMainWindow):
                 line_layout.removeWidget(widget)
             self.verticalLayout.removeItem(line_layout)
 
-    def add_to_onto_and_return(self):
+    def add_to_onto_and_return(self, onto):
         #add rule to Ontologie logic missing
+        rule_str = "cloudsystem(?p) ^ hasAssignment(?p, ?T) ^ Train(?T) ^ AiSystem(?a) -> hasAssignment(?a, ?T)  " #test
+        #rule_str = "Person(?p) ^ hasAge(?p, ?age) ^ swrlb:greaterThan(?age, 18) -> Adult(?p)"
+        def parse_swr_rule(rule_str):
+            return onto.world.swr_parse(rule_str)
+    
+        # SWRL-Regel zu Ontologie hinzufügen
+        try:
+            rule = parse_swr_rule(rule_str)
+            onto.rules.append(rule)
+            print(f"SWRL-Regel hinzugefügt: {rule_str}")
+        except Exception as e:
+            print(f"Fehler beim Hinzufügen der SWRL-Regel: {e}")
+
+        # Ontologie speichern
+        onto.save()
+
+
+
         self.close()
+
 
 class RuleWidgetItem(QtWidgets.QWidget):
     def __init__(self, rule, is_enabled):
@@ -338,7 +357,6 @@ def return_elements(entities):
     except:
         print("Error")
         
-
 def list_files_in_folder(folder_path):
 
     if not os.path.exists(folder_path):
