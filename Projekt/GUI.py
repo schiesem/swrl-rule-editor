@@ -212,6 +212,7 @@ class SecondWindow(QMainWindow):
         self.AddLine_2.clicked.connect(lambda: self.add_line_2(listOfClasses, listOfProperties))
         self.RemoveLine.clicked.connect(self.remove_line)
         self.RemoveLine_2.clicked.connect(self.remove_line_2)
+        self.pushButtonAddToOnto.clicked.connect(self.add_to_onto_and_return)
  
  
  
@@ -243,7 +244,6 @@ class SecondWindow(QMainWindow):
         self.verticalLayout.setAlignment(Qt.AlignTop)
         self.lines.append(line_layout)      #add line to vertical layout
  
-
     def add_line_2(self, listOfClasses, listOfProperties):      #add lines on conclusion side
         line_layout = QHBoxLayout()        #create line
 
@@ -291,6 +291,10 @@ class SecondWindow(QMainWindow):
                     widget.deleteLater()  # Löscht das Widget korrekt
                 line_layout.removeWidget(widget)
             self.verticalLayout.removeItem(line_layout)
+
+    def add_to_onto_and_return(self):
+        #add rule to Ontologie logic missing
+        self.close()
 
 class RuleWidgetItem(QtWidgets.QWidget):
     def __init__(self, rule, is_enabled):
