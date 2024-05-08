@@ -21,7 +21,7 @@ class SWRLRuleEditor(QMainWindow):
         self.comboBoxOntologies.addItems(ontology_names)
         self.comboBoxOntologies.setCurrentIndex(-1)
         self.comboBoxOntologies.currentIndexChanged.connect(self.ontologySelected)
-        self.onto = get_ontology("file://" + "Ontologien\ghibli.rdf").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
+        self.onto = get_ontology("file://" + "Ontologien\EmptyOnto.owl").load()                    #ontologie vor laden, wird dann später überschrieben, wenn eine ausgewählt wird. hier leere ontologie einfügen.
         self.pushButton.clicked.connect(self.open_second_window)
         self.rule_listWidget.itemClicked.connect(self.open_second_window)
 
@@ -190,34 +190,43 @@ class SWRLRuleEditor(QMainWindow):
 
     def open_second_window(self):
         listOfClasses = return_elements(self.onto.classes())
-        listOfProperties = return_elements(self.onto.properties())
+        listOfObjectProperties = return_elements(self.onto.object_properties())
+        listOfDataProperties = return_elements(self.onto.data_properties())
         OntologyName = self.comboBoxOntologies.currentText()
-        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfProperties , self.rule_list)
+        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfObjectProperties , listOfDataProperties, self.rule_list)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self, OntologyName, onto, listOfClasses, listOfProperties , listOfRules):
+    def __init__(self, OntologyName, onto, listOfClasses, listOfObjectProperties , listOfDataProperties, listOfRules):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt\SecondWindow.ui", self)
         self.show()
         self.OntologyName = OntologyName
         self.listOfClasses = listOfClasses
-        self.listOfProperties = listOfProperties
+        self.listOfProperties = listOfObjectProperties
         self.listOfRules = listOfRules
         self.initUI()
 
-        self.lines = []  # Liste zum Speichern der Linienlayouts
-        self.lines_2 = []  # Falls Sie zwei verschiedene Layouts haben
+        self.lines_if = []  #lists to save lines in layouts
+        self.lines_then = []  
+        listOfOperators = ["equal to", "less than", "greater than", "not equal to"]
  
         self.Label_selectedOntology.setText(OntologyName)
 
-        self.add_line(listOfClasses, listOfProperties)
-        self.add_line_2(listOfClasses, listOfProperties)
-        self.AddLine.clicked.connect(lambda: self.add_line(listOfClasses, listOfProperties))
-        self.AddLine_2.clicked.connect(lambda: self.add_line_2(listOfClasses, listOfProperties))
-        self.RemoveLine.clicked.connect(self.remove_line)
-        self.RemoveLine_2.clicked.connect(self.remove_line_2)
+        self.add_line_if1(listOfClasses, listOfObjectProperties)    #default
+        self.add_line_then1(listOfClasses, listOfObjectProperties)
+
+        self.AddLine_if1.clicked.connect(lambda: self.add_line_if1(listOfClasses, listOfObjectProperties))
+        self.AddLine_if2.clicked.connect(lambda: self.add_line_if2(listOfClasses))
+        self.AddLine_if3.clicked.connect(lambda: self.add_line_if3(listOfClasses, listOfDataProperties))
+        self.AddLine_if4.clicked.connect(lambda: self.add_line_if4(listOfClasses, listOfOperators))
+        self.AddLine_then1.clicked.connect(lambda: self.add_line_then1(listOfClasses, listOfObjectProperties))
+        self.AddLine_then2.clicked.connect(lambda: self.add_line_then2(listOfClasses))
+        self.AddLine_then3.clicked.connect(lambda: self.add_line_then3(listOfClasses, listOfDataProperties))
+        self.AddLine_then4.clicked.connect(lambda: self.add_line_then4(listOfClasses, listOfOperators))
+        self.RemoveLine_if.clicked.connect(self.remove_line_if)
+        self.RemoveLine_then.clicked.connect(self.remove_line_then)
         self.pushButtonAddToOnto.clicked.connect(lambda: self.add_to_onto_and_return(onto))
  
     def initUI(self):
@@ -235,7 +244,7 @@ class SecondWindow(QMainWindow):
 
         self.show()
  
-    def add_line(self, listOfClasses, listOfProperties):        #add lines on premise side
+    def add_line_if1(self, listOfClasses, listOfProperties):        #add lines (2 Classes connected through objectproperty) on premise side
         line_layout = QHBoxLayout()        #create line
 
         comboboxClass1 = QComboBox()        #create combobox for class1
@@ -261,9 +270,9 @@ class SecondWindow(QMainWindow):
  
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
-        self.lines.append(line_layout)      #add line to vertical layout
+        self.lines_if.append(line_layout)      #add line to vertical layout
  
-    def add_line_2(self, listOfClasses, listOfProperties):      #add lines on conclusion side
+    def add_line_then1(self, listOfClasses, listOfProperties):      #add lines (2 Classes connected through objectproperty) on conclusion side
         line_layout = QHBoxLayout()        #create line
 
         comboboxClass1 = QComboBox()        #create combobox for class1
@@ -289,11 +298,123 @@ class SecondWindow(QMainWindow):
  
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
-        self.lines_2.append(line_layout)      #add line to vertical layout
+        self.lines_then.append(line_layout)      #add line to vertical layout
  
-    def remove_line(self):
-        if len(self.lines) > 1:
-            line_layout = self.lines.pop()  # Letztes Layout aus der Liste entfernen
+    def add_line_if2(self, listOfClasses):      #add lines (2 Classes connected through objectproperty) on conclusion side
+        line_layout = QHBoxLayout()        #create line
+
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass1)
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        line_layout.addWidget(qlineeditVar1)
+ 
+        self.verticalLayout.addLayout(line_layout)
+        self.verticalLayout.setAlignment(Qt.AlignTop)
+        self.lines_if.append(line_layout)      #add line to vertical layout  
+
+    def add_line_then2(self, listOfClasses):      #add lines (2 Classes connected through objectproperty) on conclusion side
+        line_layout = QHBoxLayout()        #create line
+
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxClass1)
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        line_layout.addWidget(qlineeditVar1)
+ 
+        self.verticalLayout_2.addLayout(line_layout)
+        self.verticalLayout_2.setAlignment(Qt.AlignTop)
+        self.lines_then.append(line_layout)      #add line to vertical layout 
+
+    def add_line_if3(self, listOfClasses, listOfProperties ):        #add lines (compare dataproperty of class with data) on premise side
+            line_layout = QHBoxLayout()        #create line
+
+            comboboxClass1 = QComboBox()        #create combobox for class1
+            comboboxClass1.addItems(listOfClasses)
+            comboboxClass1.setCurrentIndex(-1)
+            line_layout.addWidget(comboboxClass1)
+
+            qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+            line_layout.addWidget(qlineeditVar1)
+
+            comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+            comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
+            comboboxProperty.setCurrentIndex(-1)
+            line_layout.addWidget(comboboxProperty)
+
+            qlineeditData = QLineEdit()         #create lineEdit for Datavariable
+            line_layout.addWidget(qlineeditData)            
+    
+            self.verticalLayout.addLayout(line_layout)
+            self.verticalLayout.setAlignment(Qt.AlignTop)
+            self.lines_if.append(line_layout)      #add line to vertical layout
+
+    def add_line_then3(self, listOfClasses, listOfProperties ):        #add lines (compare dataproperty of class with data) on premise side
+            line_layout = QHBoxLayout()        #create line
+
+            comboboxClass1 = QComboBox()        #create combobox for class1
+            comboboxClass1.addItems(listOfClasses)
+            comboboxClass1.setCurrentIndex(-1)
+            line_layout.addWidget(comboboxClass1)
+
+            qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+            line_layout.addWidget(qlineeditVar1)
+
+            comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+            comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
+            comboboxProperty.setCurrentIndex(-1)
+            line_layout.addWidget(comboboxProperty)
+
+            qlineeditData = QLineEdit()         #create lineEdit for Datavariable
+            line_layout.addWidget(qlineeditData)            
+    
+            self.verticalLayout_2.addLayout(line_layout)
+            self.verticalLayout_2.setAlignment(Qt.AlignTop)
+            self.lines_then.append(line_layout)      #add line to vertical layout
+ 
+    def add_line_if4(self, listOfClasses, listOfOperators):        #add lines (2 Classes connected through objectproperty) on premise side
+        line_layout = QHBoxLayout()        #create line
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Data1
+        line_layout.addWidget(qlineeditVar1)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfOperators)
+        comboboxProperty.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxProperty)
+
+        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Data2
+        line_layout.addWidget(qlineeditVar2)
+ 
+        self.verticalLayout.addLayout(line_layout)
+        self.verticalLayout.setAlignment(Qt.AlignTop)
+        self.lines_if.append(line_layout)      #add line to vertical layout 
+
+    def add_line_then4(self, listOfClasses, listOfOperators):        #add lines (2 Classes connected through objectproperty) on premise side
+        line_layout = QHBoxLayout()        #create line
+
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Data1
+        line_layout.addWidget(qlineeditVar1)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfOperators)
+        comboboxProperty.setCurrentIndex(-1)
+        line_layout.addWidget(comboboxProperty)
+
+        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Data2
+        line_layout.addWidget(qlineeditVar2)
+ 
+        self.verticalLayout_2.addLayout(line_layout)
+        self.verticalLayout_2.setAlignment(Qt.AlignTop)
+        self.lines_then.append(line_layout)      #add line to vertical layout 
+
+    def remove_line_if(self):
+        if len(self.lines_if) > 0:
+            line_layout = self.lines_if.pop()  # Letztes Layout aus der Liste entfernen
             for i in reversed(range(line_layout.count())):
                 widget = line_layout.itemAt(i).widget()
                 if widget:
@@ -301,9 +422,9 @@ class SecondWindow(QMainWindow):
                 line_layout.removeWidget(widget)
             self.verticalLayout.removeItem(line_layout)
 
-    def remove_line_2(self):
-        if len(self.lines_2) > 1:
-            line_layout = self.lines_2.pop()  # Letztes Layout aus der Liste entfernen
+    def remove_line_then(self):
+        if len(self.lines_then) > 0:
+            line_layout = self.lines_then.pop()  # Letztes Layout aus der Liste entfernen
             for i in reversed(range(line_layout.count())):
                 widget = line_layout.itemAt(i).widget()
                 if widget:

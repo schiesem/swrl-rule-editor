@@ -162,17 +162,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="AddLine">
+   <widget class="QPushButton" name="AddLine_if1">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>510</x>
       <y>860</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Add Line</string>
+     <string>Add Line 1</string>
     </property>
    </widget>
    <widget class="QWidget" name="widget" native="true">
@@ -243,33 +243,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="AddLine_2">
-    <property name="geometry">
-     <rect>
-      <x>1320</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="RemoveLine">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove Line</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="RemoveLine_2">
+   <widget class="QPushButton" name="AddLine_then1">
     <property name="geometry">
      <rect>
       <x>1240</x>
@@ -279,7 +253,111 @@
      </rect>
     </property>
     <property name="text">
+     <string>Add Line 1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="RemoveLine_if">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
      <string>Remove Line</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="RemoveLine_then">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Line</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_if2">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_then2">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_if3">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_if4">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 4</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_then3">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddLine_then4">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>860</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Line 4</string>
     </property>
    </widget>
   </widget>
