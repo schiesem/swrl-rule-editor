@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1433</width>
-    <height>1016</height>
+    <width>1696</width>
+    <height>1145</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,13 +19,494 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">
+    * {
+      font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+      font-size: 11pt;
+    }
+    QMainWindow {
+      background-color: #f5f5f5;
+    }
+    QMenuBar, QStatusBar {
+      background-color: #eeeeee;
+      border-bottom: 1px solid #cccccc;
+    }
+    QMenu {
+      background-color: #ffffff;
+      border: 1px solid #d3d3d3;
+    }
+    QLabel {
+      font-weight: bold;
+      color: #333333;
+    }
+    QTreeWidget, QListWidget, QLineEdit, QComboBox {
+      border: 1px solid #cccccc;
+      background-color: #ffffff;
+      border-radius: 3px;
+    }
+    QTreeWidget::item {
+      padding: 5px;
+    }
+    QTreeWidget::header {
+      background-color: #e5e5e5;
+      font-weight: bold;
+      border-bottom: 1px solid #cccccc;
+      padding: 5px;
+    }
+    QListWidget::item {
+      padding: 5px;
+    }</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButtonAddToOnto">
+    <property name="geometry">
+     <rect>
+      <x>1390</x>
+      <y>1100</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+      background-color: #0078d7;
+      color: white;
+      border: 1px solid #0078d7;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+    QPushButton:hover {
+      background-color: #0053a5;
+    }</string>
+    </property>
+    <property name="text">
+     <string>Add Rule to Ontology</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>1671</width>
+      <height>771</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_rules">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_if" stretch="0,5,0">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    font-weight: bold;
+    color: #0078d7;
+    font-size: 18pt; 
+}
+</string>
+         </property>
+         <property name="text">
+          <string>IF</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>9</y>
+            <width>811</width>
+            <height>681</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>809</width>
+             <height>679</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout"/>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_ifButtons">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="AddLine_if1">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_if2">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_if3">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 3</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_if4">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 4</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RemoveLine_if">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #808080; /* Grau */
+    color: white;
+    border: 1px solid #808080; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #606060; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Remove Line</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_then" stretch="0,5,0">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetNoConstraint</enum>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    font-weight: bold;
+    color: #0078d7;
+    font-size: 18pt; 
+}
+</string>
+         </property>
+         <property name="text">
+          <string>THEN</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_2" native="true">
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>9</y>
+            <width>811</width>
+            <height>681</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>809</width>
+             <height>679</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2"/>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_thenButtons">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="AddLine_then1">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_then2">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_then3">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 3</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="AddLine_then4">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #D3D3D3; /* Blasses Grau */
+    color: black;
+    border: 1px solid #D3D3D3; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #B0B0B0; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Line Type 4</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RemoveLine_then">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #808080; /* Grau */
+    color: white;
+    border: 1px solid #808080; /* Gleiche Farbe wie der Hintergrund */
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #606060; /* Dunkleres Grau beim Hover */
+}</string>
+           </property>
+           <property name="text">
+            <string>Remove Line</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>601</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_oben">
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>10</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Selected Ontology:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="Label_selectedOntology">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListView" name="listViewRules"/>
+     </item>
+    </layout>
+   </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>310</y>
-      <width>1431</width>
+      <x>10</x>
+      <y>260</y>
+      <width>1671</width>
       <height>20</height>
      </rect>
     </property>
@@ -36,32 +517,9 @@
    <widget class="Line" name="line_2">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>320</y>
-      <width>16</width>
-      <height>571</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QListView" name="listViewRules">
-    <property name="geometry">
-     <rect>
       <x>10</x>
-      <y>40</y>
-      <width>591</width>
-      <height>221</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>880</y>
-      <width>1431</width>
+      <y>1080</y>
+      <width>1671</width>
       <height>20</height>
      </rect>
     </property>
@@ -69,299 +527,32 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonAddToOnto">
+   <widget class="QWidget" name="verticalLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>1250</x>
-      <y>910</y>
-      <width>151</width>
-      <height>31</height>
+      <x>800</x>
+      <y>280</y>
+      <width>91</width>
+      <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Add Rule to Ontology</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>300</y>
-      <width>47</width>
-      <height>14</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>IF</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>1070</x>
-      <y>300</y>
-      <width>61</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>THEN</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Selected Ontology:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Label_selectedOntology">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>10</y>
-      <width>181</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_if1">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 1</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>330</y>
-      <width>651</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="geometry">
-      <rect>
-       <x>9</x>
-       <y>-1</y>
-       <width>641</width>
-       <height>521</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>639</width>
-        <height>519</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="widget_2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>330</y>
-      <width>651</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <widget class="QScrollArea" name="scrollArea_2">
-     <property name="geometry">
-      <rect>
-       <x>9</x>
-       <y>-1</y>
-       <width>641</width>
-       <height>521</height>
-      </rect>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>639</width>
-        <height>519</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2"/>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="AddLine_then1">
-    <property name="geometry">
-     <rect>
-      <x>1240</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="RemoveLine_if">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove Line</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="RemoveLine_then">
-    <property name="geometry">
-     <rect>
-      <x>1320</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove Line</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_if2">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 2</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_then2">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 2</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_if3">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 3</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_if4">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 4</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_then3">
-    <property name="geometry">
-     <rect>
-      <x>1080</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 3</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddLine_then4">
-    <property name="geometry">
-     <rect>
-      <x>1000</x>
-      <y>860</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Line 4</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_4">
+          <property name="pixmap">
+              <pixmap resource="Icons/BlueArrow.qrc">:/newPrefix/arrow_blue.png</pixmap>
+          </property>
+          <property name="scaledContents">
+              <bool>true</bool>
+          </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="Icons/BlueArrow.qrc"/>
+ </resources>
  <connections/>
 </ui>

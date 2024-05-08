@@ -7,6 +7,7 @@ from os import path
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton, QLabel
 from PyQt5.QtCore import Qt, QStringListModel
+import Icons.BlueArrow_rc
 
 
 
@@ -35,9 +36,20 @@ class SWRLRuleEditor(QMainWindow):
         # Liste für die gefundenen Regeln
         self.rule_list = []
 
-        #ontoVorlage = get_ontology("file://" + "Ontologien\ghibli.rdf").load()
-        #print("...")
-        #print(return_elements(ontoVorlage.classes()))
+        # Icon für die Lupe laden
+        search_icon = QtGui.QIcon("Projekt\Icons\magnifier_6806083.png")
+        search_action = QtWidgets.QAction(search_icon, "", self.rule_lineEdit)
+
+        # Aktion zum LineEdit hinzufügen (linke Seite)
+        self.rule_lineEdit.addAction(search_action, QtWidgets.QLineEdit.LeadingPosition)
+
+        # Optional: Stil setzen
+        self.rule_lineEdit.setStyleSheet("""
+            QLineEdit {
+                padding-left: 30px;
+                font-size: 14px;
+            }
+        """)
 
     def addRuleToListWidget(self, rule_label, is_enabled):
         item_text = f"Regel: {rule_label}\nAktiviert: {is_enabled}"
@@ -433,7 +445,7 @@ class SecondWindow(QMainWindow):
             self.verticalLayout.removeItem(line_layout)
 
     def add_to_onto_and_return(self, onto):
-        #add rule to Ontologie logic missing
+        '''#add rule to Ontologie logic missing
         rule_str = "cloudsystem(?p) ^ hasAssignment(?p, ?T) ^ Train(?T) ^ AiSystem(?a) -> hasAssignment(?a, ?T)  " #test
         #rule_str = "Person(?p) ^ hasAge(?p, ?age) ^ swrlb:greaterThan(?age, 18) -> Adult(?p)"
         def parse_swr_rule(rule_str):
@@ -448,7 +460,7 @@ class SecondWindow(QMainWindow):
             print(f"Fehler beim Hinzufügen der SWRL-Regel: {e}")
 
         # Ontologie speichern
-        onto.save()
+        onto.save()'''
 
 
 

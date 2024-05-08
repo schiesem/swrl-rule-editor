@@ -6,184 +6,206 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1228</width>
-    <height>700</height>
+    <width>1698</width>
+    <height>1146</height>
    </rect>
   </property>
-  <property name="cursor">
-   <cursorShape>ArrowCursor</cursorShape>
-  </property>
-  <property name="mouseTracking">
-   <bool>false</bool>
-  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
-  </property>
-  <property name="autoFillBackground">
-   <bool>true</bool>
+   <string>Ontology Manager</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string>
+    * {
+      font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+      font-size: 11pt;
+    }
+    QMainWindow {
+      background-color: #f5f5f5;
+    }
+    QMenuBar, QStatusBar {
+      background-color: #eeeeee;
+      border-bottom: 1px solid #cccccc;
+    }
+    QMenu {
+      background-color: #ffffff;
+      border: 1px solid #d3d3d3;
+    }
+    QPushButton {
+      background-color: #0078d7;
+      color: white;
+      border: 1px solid #0078d7;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+    QPushButton:hover {
+      background-color: #0053a5;
+    }
+    QLabel {
+      font-weight: bold;
+      color: #333333;
+    }
+    QTreeWidget, QListWidget, QLineEdit, QComboBox {
+      border: 1px solid #cccccc;
+      background-color: #ffffff;
+      border-radius: 3px;
+    }
+    QTreeWidget::item {
+      padding: 5px;
+    }
+    QTreeWidget::header {
+      background-color: #e5e5e5;
+      font-weight: bold;
+      border-bottom: 1px solid #cccccc;
+      padding: 5px;
+    }
+    QListWidget::item {
+      padding: 5px;
+    }
+   </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>0</y>
-      <width>91</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ontology name:</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>211</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>620</y>
-      <width>181</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>create new rule</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>20</y>
-      <width>20</width>
-      <height>611</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QTreeWidget" name="treeOfClasses">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>20</y>
-      <width>231</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
-    </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustIgnored</enum>
-    </property>
-    <column>
-     <property name="text">
-      <string>list of classes</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QComboBox" name="comboBoxOntologies">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>0</y>
-      <width>131</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTreeWidget" name="treeOfObjectProperties">
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>20</y>
-      <width>181</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>list of objectproperties</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QTreeWidget" name="treeOfDataProperties">
-    <property name="geometry">
-     <rect>
-      <x>1040</x>
-      <y>20</y>
-      <width>181</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>list of dataproperties</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QLineEdit" name="rule_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>471</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="rule_listWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
+      <x>660</x>
       <y>90</y>
-      <width>471</width>
-      <height>491</height>
+      <width>1011</width>
+      <height>861</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QTreeWidget" name="treeOfClasses">
+       <property name="headerLabel" stdset="0">
+        <string>List of Classes</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Classes:</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeWidget" name="treeOfObjectProperties">
+       <property name="headerLabel" stdset="0">
+        <string>List of Object Properties</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Objectproperties:</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeWidget" name="treeOfDataProperties">
+       <property name="headerLabel" stdset="0">
+        <string>List of Data Properties</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Dataproperties:</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1228</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="OntologiesDropdown">
-    <property name="title">
-     <string>Ontologies</string>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>641</width>
+      <height>941</height>
+     </rect>
     </property>
-    <addaction name="actioncreate_new_rule"/>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="maximumSize">
+          <size>
+           <width>1677</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Ontology name:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBoxOntologies"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Preferred</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="maximumSize">
+        <size>
+         <width>1677</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Rules:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="rule_lineEdit">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="rule_listWidget"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Create New Rule</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <addaction name="OntologiesDropdown"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actioncreate_new_rule">
+  <action name="actionCreateNewRule">
    <property name="text">
-    <string>create new rule</string>
+    <string>Create New Rule</string>
    </property>
   </action>
  </widget>
