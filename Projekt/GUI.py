@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton, QLabel
 from PyQt5.QtCore import Qt, QStringListModel
 import Icons.BlueArrow_rc
+from PyQt5.QtGui import QFont
 
 
 
@@ -256,169 +257,314 @@ class SecondWindow(QMainWindow):
 
         self.show()
  
-    def add_line_if1(self, listOfClasses, listOfProperties):        #add lines (2 Classes connected through objectproperty) on premise side
-        line_layout = QHBoxLayout()        #create line
+    def add_line_if1(self, listOfClasses, listOfProperties):
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
 
-        comboboxClass1 = QComboBox()        #create combobox for class1
+        line_layout = QHBoxLayout()  # Horizontal Layout created
+
+        # Combobox for Class1
+        comboboxClass1 = QComboBox()
         comboboxClass1.addItems(listOfClasses)
         comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
         line_layout.addWidget(comboboxClass1)
 
-        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        # Lineedit for Var1 vof Class1
+        qlineeditVar1 = QLineEdit()
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
 
-        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        # Spacer
+        spacer1 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer1)
+
+        # # Combobox for Objectproperty
+        comboboxProperty = QComboBox()
         comboboxProperty.addItems(listOfProperties)
         comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
         line_layout.addWidget(comboboxProperty)
 
-        comboboxClass2 = QComboBox()        #create combobox for class2
+        # Spacer
+        spacer2 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer2)
+
+        # # Combobox for Class2
+        comboboxClass2 = QComboBox()
         comboboxClass2.addItems(listOfClasses)
         comboboxClass2.setCurrentIndex(-1)
+        comboboxClass2.setFont(small_font)
+        comboboxClass2.setFixedWidth(160)
         line_layout.addWidget(comboboxClass2)
 
-        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Class2
+        # Lineedit for Var2 of Class2
+        qlineeditVar2 = QLineEdit()
+        qlineeditVar2.setFont(small_font)
+        qlineeditVar2.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar2)
- 
-        self.verticalLayout.addLayout(line_layout)
+
+        line_layout.addStretch()
+
+        self.verticalLayout.addLayout(line_layout)  # add line to vertical Layout
         self.verticalLayout.setAlignment(Qt.AlignTop)
-        self.lines_if.append(line_layout)      #add line to vertical layout
+        self.lines_if.append(line_layout)  # add line to list
  
     def add_line_then1(self, listOfClasses, listOfProperties):      #add lines (2 Classes connected through objectproperty) on conclusion side
-        line_layout = QHBoxLayout()        #create line
 
-        comboboxClass1 = QComboBox()        #create combobox for class1
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
+
+        line_layout = QHBoxLayout()  # Horizontal Layout created
+
+        # Combobox for Class1
+        comboboxClass1 = QComboBox()
         comboboxClass1.addItems(listOfClasses)
         comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
         line_layout.addWidget(comboboxClass1)
 
-        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        # Lineedit for Var1 vof Class1
+        qlineeditVar1 = QLineEdit()
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
 
-        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        # Spacer
+        spacer1 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer1)
+
+        # # Combobox for Objectproperty
+        comboboxProperty = QComboBox()
         comboboxProperty.addItems(listOfProperties)
         comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
         line_layout.addWidget(comboboxProperty)
 
-        comboboxClass2 = QComboBox()        #create combobox for class2
+        # Spacer
+        spacer2 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer2)
+
+        # # Combobox for Class2
+        comboboxClass2 = QComboBox()
         comboboxClass2.addItems(listOfClasses)
         comboboxClass2.setCurrentIndex(-1)
+        comboboxClass2.setFont(small_font)
+        comboboxClass2.setFixedWidth(160)
         line_layout.addWidget(comboboxClass2)
 
-        qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Class2
+        # Lineedit for Var2 of Class2
+        qlineeditVar2 = QLineEdit()
+        qlineeditVar2.setFont(small_font)
+        qlineeditVar2.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar2)
- 
-        self.verticalLayout_2.addLayout(line_layout)
+
+        line_layout.addStretch()
+
+        self.verticalLayout_2.addLayout(line_layout)  # add line to vertical Layout
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
-        self.lines_then.append(line_layout)      #add line to vertical layout
+        self.lines_then.append(line_layout)  # add line to list
  
     def add_line_if2(self, listOfClasses):      #add lines (2 Classes connected through objectproperty) on conclusion side
+
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
+
         line_layout = QHBoxLayout()        #create line
 
         comboboxClass1 = QComboBox()        #create combobox for class1
         comboboxClass1.addItems(listOfClasses)
         comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
         line_layout.addWidget(comboboxClass1)
 
         qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
  
+        line_layout.addStretch()
+
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
         self.lines_if.append(line_layout)      #add line to vertical layout  
 
     def add_line_then2(self, listOfClasses):      #add lines (2 Classes connected through objectproperty) on conclusion side
+
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
+
         line_layout = QHBoxLayout()        #create line
 
         comboboxClass1 = QComboBox()        #create combobox for class1
         comboboxClass1.addItems(listOfClasses)
         comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
         line_layout.addWidget(comboboxClass1)
 
         qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
  
+        line_layout.addStretch()
+
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
         self.lines_then.append(line_layout)      #add line to vertical layout 
 
     def add_line_if3(self, listOfClasses, listOfProperties ):        #add lines (compare dataproperty of class with data) on premise side
-            line_layout = QHBoxLayout()        #create line
 
-            comboboxClass1 = QComboBox()        #create combobox for class1
-            comboboxClass1.addItems(listOfClasses)
-            comboboxClass1.setCurrentIndex(-1)
-            line_layout.addWidget(comboboxClass1)
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
 
-            qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
-            line_layout.addWidget(qlineeditVar1)
+        line_layout = QHBoxLayout()        #create line
 
-            comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
-            comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
-            comboboxProperty.setCurrentIndex(-1)
-            line_layout.addWidget(comboboxProperty)
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
+        line_layout.addWidget(comboboxClass1)
 
-            qlineeditData = QLineEdit()         #create lineEdit for Datavariable
-            line_layout.addWidget(qlineeditData)            
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
+        line_layout.addWidget(qlineeditVar1)
+
+        # Spacer
+        spacer2 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer2)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
+        comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
+        line_layout.addWidget(comboboxProperty)
+
+        qlineeditData = QLineEdit()         #create lineEdit for Datavariable
+        qlineeditData.setFont(small_font)
+        qlineeditData.setFixedWidth(80)
+        line_layout.addWidget(qlineeditData)   
+
+        line_layout.addStretch()         
     
-            self.verticalLayout.addLayout(line_layout)
-            self.verticalLayout.setAlignment(Qt.AlignTop)
-            self.lines_if.append(line_layout)      #add line to vertical layout
+        self.verticalLayout.addLayout(line_layout)
+        self.verticalLayout.setAlignment(Qt.AlignTop)
+        self.lines_if.append(line_layout)      #add line to vertical layout
 
     def add_line_then3(self, listOfClasses, listOfProperties ):        #add lines (compare dataproperty of class with data) on premise side
-            line_layout = QHBoxLayout()        #create line
 
-            comboboxClass1 = QComboBox()        #create combobox for class1
-            comboboxClass1.addItems(listOfClasses)
-            comboboxClass1.setCurrentIndex(-1)
-            line_layout.addWidget(comboboxClass1)
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
 
-            qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
-            line_layout.addWidget(qlineeditVar1)
+        line_layout = QHBoxLayout()        #create line
 
-            comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
-            comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
-            comboboxProperty.setCurrentIndex(-1)
-            line_layout.addWidget(comboboxProperty)
+        comboboxClass1 = QComboBox()        #create combobox for class1
+        comboboxClass1.addItems(listOfClasses)
+        comboboxClass1.setCurrentIndex(-1)
+        comboboxClass1.setFont(small_font)
+        comboboxClass1.setFixedWidth(160)
+        line_layout.addWidget(comboboxClass1)
 
-            qlineeditData = QLineEdit()         #create lineEdit for Datavariable
-            line_layout.addWidget(qlineeditData)            
+        qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Class1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
+        line_layout.addWidget(qlineeditVar1)
+
+        # Spacer
+        spacer2 = QSpacerItem(50, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        line_layout.addItem(spacer2)
+
+        comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
+        comboboxProperty.addItems(listOfProperties)     #nur dataproperties...
+        comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
+        line_layout.addWidget(comboboxProperty)
+
+        qlineeditData = QLineEdit()         #create lineEdit for Datavariable
+        qlineeditData.setFont(small_font)
+        qlineeditData.setFixedWidth(80)
+        line_layout.addWidget(qlineeditData)  
+
+        line_layout.addStretch()          
     
-            self.verticalLayout_2.addLayout(line_layout)
-            self.verticalLayout_2.setAlignment(Qt.AlignTop)
-            self.lines_then.append(line_layout)      #add line to vertical layout
+        self.verticalLayout_2.addLayout(line_layout)
+        self.verticalLayout_2.setAlignment(Qt.AlignTop)
+        self.lines_then.append(line_layout)      #add line to vertical layout
  
     def add_line_if4(self, listOfClasses, listOfOperators):        #add lines (2 Classes connected through objectproperty) on premise side
+
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
+
         line_layout = QHBoxLayout()        #create line
 
         qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Data1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
 
         comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
         comboboxProperty.addItems(listOfOperators)
         comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
         line_layout.addWidget(comboboxProperty)
 
         qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Data2
+        qlineeditVar2.setFont(small_font)
+        qlineeditVar2.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar2)
+
+        line_layout.addStretch()
  
         self.verticalLayout.addLayout(line_layout)
         self.verticalLayout.setAlignment(Qt.AlignTop)
         self.lines_if.append(line_layout)      #add line to vertical layout 
 
     def add_line_then4(self, listOfClasses, listOfOperators):        #add lines (2 Classes connected through objectproperty) on premise side
+
+        # Fontdefinition
+        small_font = QFont()
+        small_font.setPointSize(8)
+
         line_layout = QHBoxLayout()        #create line
 
         qlineeditVar1 = QLineEdit()         #create lineEdit for Var1 of Data1
+        qlineeditVar1.setFont(small_font)
+        qlineeditVar1.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar1)
 
         comboboxProperty = QComboBox()      #create combobox for property to connect the variables with
         comboboxProperty.addItems(listOfOperators)
         comboboxProperty.setCurrentIndex(-1)
+        comboboxProperty.setFont(small_font)
+        comboboxProperty.setFixedWidth(160)
         line_layout.addWidget(comboboxProperty)
 
         qlineeditVar2 = QLineEdit()         #create lineEdit for Var2 of Data2
+        qlineeditVar2.setFont(small_font)
+        qlineeditVar2.setFixedWidth(80)
         line_layout.addWidget(qlineeditVar2)
+
+        line_layout.addStretch()
  
         self.verticalLayout_2.addLayout(line_layout)
         self.verticalLayout_2.setAlignment(Qt.AlignTop)
@@ -427,21 +573,32 @@ class SecondWindow(QMainWindow):
     def remove_line_if(self):
         if len(self.lines_if) > 0:
             line_layout = self.lines_if.pop()  # Letztes Layout aus der Liste entfernen
-            for i in reversed(range(line_layout.count())):
-                widget = line_layout.itemAt(i).widget()
-                if widget:
-                    widget.deleteLater()  # Löscht das Widget korrekt
-                line_layout.removeWidget(widget)
+
+            while line_layout.count():
+                item = line_layout.takeAt(0)
+                widget = item.widget()
+
+                if widget is not None:
+                    widget.deleteLater()
+
+                line_layout.removeItem(item)
+
             self.verticalLayout.removeItem(line_layout)
 
     def remove_line_then(self):
+
         if len(self.lines_then) > 0:
             line_layout = self.lines_then.pop()  # Letztes Layout aus der Liste entfernen
-            for i in reversed(range(line_layout.count())):
-                widget = line_layout.itemAt(i).widget()
-                if widget:
-                    widget.deleteLater()  # Löscht das Widget korrekt
-                line_layout.removeWidget(widget)
+
+            while line_layout.count():
+                item = line_layout.takeAt(0)
+                widget = item.widget()
+
+                if widget is not None:
+                    widget.deleteLater()
+
+                line_layout.removeItem(item)
+
             self.verticalLayout.removeItem(line_layout)
 
     def add_to_onto_and_return(self, onto):
