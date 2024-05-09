@@ -63,9 +63,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>300</y>
+      <y>390</y>
       <width>1671</width>
-      <height>771</height>
+      <height>661</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_rules">
@@ -105,7 +105,7 @@
             <x>9</x>
             <y>9</y>
             <width>811</width>
-            <height>681</height>
+            <height>541</height>
            </rect>
           </property>
           <property name="widgetResizable">
@@ -117,7 +117,7 @@
              <x>0</x>
              <y>0</y>
              <width>809</width>
-             <height>679</height>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -278,10 +278,10 @@ QPushButton:hover {
          <widget class="QScrollArea" name="scrollArea_2">
           <property name="geometry">
            <rect>
-            <x>9</x>
-            <y>9</y>
+            <x>10</x>
+            <y>10</y>
             <width>811</width>
-            <height>681</height>
+            <height>541</height>
            </rect>
           </property>
           <property name="widgetResizable">
@@ -293,7 +293,7 @@ QPushButton:hover {
              <x>0</x>
              <y>0</y>
              <width>809</width>
-             <height>679</height>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -426,7 +426,7 @@ QPushButton:hover {
       <x>10</x>
       <y>10</y>
       <width>601</width>
-      <height>251</height>
+      <height>331</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_oben">
@@ -479,7 +479,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>350</y>
       <width>1671</width>
       <height>20</height>
      </rect>
@@ -492,7 +492,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>1070</y>
+      <y>1050</y>
       <width>1671</width>
       <height>20</height>
      </rect>
@@ -505,7 +505,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>800</x>
-      <y>280</y>
+      <y>370</y>
       <width>91</width>
       <height>81</height>
      </rect>
@@ -536,7 +536,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>950</x>
-      <y>1080</y>
+      <y>1070</y>
       <width>721</width>
       <height>51</height>
      </rect>
@@ -577,10 +577,10 @@ QPushButton:hover {
    <widget class="QWidget" name="verticalLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>1002</width>
-      <height>302</height>
+      <x>690</x>
+      <y>70</y>
+      <width>991</width>
+      <height>271</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -591,8 +591,8 @@ QPushButton:hover {
       <widget class="QLabel" name="label_ExplanationLines">
        <property name="maximumSize">
         <size>
-         <width>1000</width>
-         <height>300</height>
+         <width>1080</width>
+         <height>350</height>
         </size>
        </property>
        <property name="pixmap">
