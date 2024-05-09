@@ -59,32 +59,6 @@
     }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButtonAddToOnto">
-    <property name="geometry">
-     <rect>
-      <x>1390</x>
-      <y>1100</y>
-      <width>281</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-      background-color: #0078d7;
-      color: white;
-      border: 1px solid #0078d7;
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-weight: bold;
-    }
-    QPushButton:hover {
-      background-color: #0053a5;
-    }</string>
-    </property>
-    <property name="text">
-     <string>Add Rule to Ontology</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_4">
     <property name="geometry">
      <rect>
@@ -518,7 +492,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>1080</y>
+      <y>1070</y>
       <width>1671</width>
       <height>20</height>
      </rect>
@@ -533,18 +507,69 @@ QPushButton:hover {
       <x>800</x>
       <y>280</y>
       <width>91</width>
-      <height>71</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
+     </property>
      <item>
       <widget class="QLabel" name="label_4">
-          <property name="pixmap">
-              <pixmap resource="Icons/BlueArrow.qrc">:/newPrefix/arrow_blue.png</pixmap>
-          </property>
-          <property name="scaledContents">
-              <bool>true</bool>
-          </property>
+       <property name="maximumSize">
+        <size>
+         <width>89</width>
+         <height>79</height>
+        </size>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="Icons/BlueArrow.qrc">:/newPrefix/arrow_blue.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>1080</y>
+      <width>721</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Rule Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditRuleName"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonAddToOnto">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+      background-color: #0078d7;
+      color: white;
+      border: 1px solid #0078d7;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+    QPushButton:hover {
+      background-color: #0053a5;
+    }</string>
+       </property>
+       <property name="text">
+        <string>Add Rule to Ontology</string>
+       </property>
       </widget>
      </item>
     </layout>
