@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QComboBox, QPushButton, QLabel
 from PyQt5.QtCore import Qt, QStringListModel
 import Icons.BlueArrow_rc
+import Icons.LinesExplanation_rc
 from PyQt5.QtGui import QFont
 
 
@@ -227,8 +228,8 @@ class SecondWindow(QMainWindow):
  
         self.Label_selectedOntology.setText(OntologyName)
 
-        self.add_line_if1(listOfClasses, listOfObjectProperties)    #default
-        self.add_line_then1(listOfClasses, listOfObjectProperties)
+        #self.add_line_if1(listOfClasses, listOfObjectProperties)    #default
+        #self.add_line_then1(listOfClasses, listOfObjectProperties)
 
         self.AddLine_if1.clicked.connect(lambda: self.add_line_if1(listOfClasses, listOfObjectProperties))
         self.AddLine_if2.clicked.connect(lambda: self.add_line_if2(listOfClasses))

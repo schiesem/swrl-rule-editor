@@ -1,6 +1,5 @@
-<!-- Icons/BlueArrow.qrc -->
 <RCC>
-    <qresource prefix="newPrefix">
-        <file>arrow_blue.png</file>
-    </qresource>
+  <qresource prefix="newPrefix">
+    <file>arrow_blue.png</file>
+  </qresource>
 </RCC>

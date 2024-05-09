@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/Projekt/Icons">
+    <file>LinesExplanation.png</file>
+  </qresource>
+</RCC>
