@@ -69,12 +69,14 @@ class SWRLRuleEditor(QMainWindow):
         onto = get_ontology("file://" + file_path_save).load()
         print("The ontology has been loaded")                                       #testing
         
+        self.onto = onto
+
         # Regeln des ListWidgets löschen und Liste leeren
         self.rule_listWidget.clear()
         self.rule_list = []
 
         #Creates class-hierarchy
-        self.treeOfClasses.clear()
+        self.treeOfClasses.clear()                                                  #not working properly yet....
         hierarchy_classes_data = create_hierarchy(Thing)
         self.printClassTree(hierarchy_classes_data)
 
@@ -99,9 +101,8 @@ class SWRLRuleEditor(QMainWindow):
         # Liste aktualisieren
         self.updateRuleListWidget()
     
-    
-        self.test = "Test neu!"
-        self.onto = onto
+
+        
 
 
     def search_rules(self, text):

@@ -1,0 +1,1523 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY UxVMission "http://www.hsu-ifa.de/ontologies/UxVMission#" >
+    <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.hsu-ifa.de/ontologies/UxVMission#"
+     xml:base="http://www.hsu-ifa.de/ontologies/UxVMission"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:UxVMission="http://www.hsu-ifa.de/ontologies/UxVMission#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+    <owl:Ontology rdf:about="http://www.hsu-ifa.de/ontologies/UxVMission">
+        <rdfs:comment>ODP do describe the Mission-Parameters for an (autonomous) UxV</rdfs:comment>
+        <owl:imports rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="&swrla;isRuleEnabled"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#AMRexecutes -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#AMRexecutes">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Autonomous_Mobile_Robot"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Association -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Inheritance -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Inheritance"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#actConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#actConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Communication"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Inheritance"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Locomotion"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Manipulation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#actInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#actInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#cmConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#cmConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConstraintManagement"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Diagnosis"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#EnergyManagement"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#SafetyManagement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#comConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#comConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Communication"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Proactive"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Reactive"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#cwmConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#cwmConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ExternalWorld"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#InternalWorld"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#decConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#decConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConstraintManagement"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Inheritance"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#MissionManagement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#decInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#decInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#eiConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#eiConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Area"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#External_Information"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Fire"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Gate"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Tank"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Time"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Weather"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#eiInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#eiInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#External_Information"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#hgiConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#hgiConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Constraint"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#HumanGiven_Information"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Mission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#hgiInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#hgiInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#HumanGiven_Information"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#iiConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#iiConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Acceleration"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Internal_Information"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Position"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Status"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Velocity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#iiInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#iiInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Internal_Information"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#kiInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#kiInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#KnowledgeInference"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#locoConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#locoConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#AbsoluteMotion"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Locomotion"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#PlatformStabilization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#manConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#manConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Manipulation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Environment"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Human"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Robot"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Self-Manipulation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#mmConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#mmConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ActionEvaluation"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ActionSelection"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#DeAggregation"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#MissionManagement"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Plan"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#objectHasTypes -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#objectHasTypes">
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Fire"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Gate"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Inheritance"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Tank"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ooConsistsOf -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ooConsistsOf">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#External_Information"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#HumanGiven_Information"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Inheritance"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Internal_Information"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ooInfluences -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ooInfluences">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Association"/>
+        <rdfs:range rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasConcurrentGoal -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasConcurrentGoal">
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:comment>Sequential Relation to a parallel running Goal</rdfs:comment>
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:range rdf:resource="&UxVMission;Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasGeoFence -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasGeoFence">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment>Relation of Mission to Geofence. A Mission has exactly one Geofence</rdfs:comment>
+        <rdfs:range rdf:resource="&UxVMission;Constraint"/>
+        <rdfs:range rdf:resource="&UxVMission;GeoFence"/>
+        <rdfs:domain rdf:resource="&UxVMission;Mission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasGoal -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasGoal">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:comment>Relation of Mission to Goal. One Mission has at least one Goal</rdfs:comment>
+        <rdfs:range rdf:resource="&UxVMission;Goal"/>
+        <rdfs:domain rdf:resource="&UxVMission;Mission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasMission -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasMission">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:comment>Realtion of UxV to Mission. An UxV has one Mission at a time</rdfs:comment>
+        <rdfs:range rdf:resource="&UxVMission;Mission"/>
+        <rdfs:domain rdf:resource="&UxVMission;UxV"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasPreceedingGoal -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasPreceedingGoal">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:comment>Sequential Relation to Prior Goal</rdfs:comment>
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:range rdf:resource="&UxVMission;Goal"/>
+        <owl:inverseOf rdf:resource="&UxVMission;hasSubsequentGoal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasSLP -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasSLP">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:comment>Relation of Mission to Safety Landing Point. A Mission has exactly one SLP</rdfs:comment>
+        <rdfs:range rdf:resource="&UxVMission;Constraint"/>
+        <rdfs:domain rdf:resource="&UxVMission;Mission"/>
+        <rdfs:range rdf:resource="&UxVMission;SafetyLandingPoint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasSubsequentGoal -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;hasSubsequentGoal">
+        <rdf:type rdf:resource="&owl;AsymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:comment>Sequential Relation to Following Goal</rdfs:comment>
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:range rdf:resource="&UxVMission;Goal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#isWithinGeofence -->
+
+    <owl:ObjectProperty rdf:about="&UxVMission;isWithinGeofence">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:range rdf:resource="&UxVMission;GeoFence"/>
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:domain rdf:resource="&UxVMission;SafetyLandingPoint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#location -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#location"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Area_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Area_ID">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Area"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Armed -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Armed">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Status"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#BatteryPercentage -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#BatteryPercentage">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment>0 - 100%</rdfs:comment>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Status"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#GateIsOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#GateIsOpen">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Gate"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Groundspeed -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Groundspeed">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Velocity"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#LastSamplingTime -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#LastSamplingTime">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Tank"/>
+        <rdfs:range rdf:resource="&xsd;dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#LocalTime -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#LocalTime">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Time"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Object_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Object_ID">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#PositionAltitude -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#PositionAltitude">
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#PositionLatitude -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#PositionLatitude">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Fire"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Gate"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Tank"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#PositionLongitude -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#PositionLongitude">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Fire"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Gate"/>
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Tank"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Timestamp -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Timestamp">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Communication"/>
+        <rdfs:range rdf:resource="&xsd;dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#UxV_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#UxV_ID">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Autonomous_Mobile_Robot"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#UxV_Type -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#UxV_Type">
+        <rdfs:domain rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Autonomous_Mobile_Robot"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#hasGeoFenceandSLP -->
+
+    <owl:DatatypeProperty rdf:about="&UxVMission;hasGeoFenceandSLP">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment>Checks if Mission has GeoFence and SLP. Automatically set by Rule</rdfs:comment>
+        <rdfs:domain rdf:resource="&UxVMission;Mission"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#isAchievableWithoutViolations -->
+
+    <owl:DatatypeProperty rdf:about="&UxVMission;isAchievableWithoutViolations">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#isValidMission -->
+
+    <owl:DatatypeProperty rdf:about="&UxVMission;isValidMission">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&UxVMission;Mission"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#isWithinMissionGeoFence -->
+
+    <owl:DatatypeProperty rdf:about="&UxVMission;isWithinMissionGeoFence">
+        <rdfs:domain rdf:resource="&UxVMission;Goal"/>
+        <rdfs:domain rdf:resource="&UxVMission;SafetyLandingPoint"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#AbsoluteMotion -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#AbsoluteMotion"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Acceleration -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Acceleration"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Act -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ActionEvaluation -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ActionEvaluation"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ActionSelection -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ActionSelection"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Area -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Area"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Autonomous_Mobile_Robot -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Autonomous_Mobile_Robot"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Communication -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Communication">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ConductedWorldModel"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Constraint -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Constraint"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ConstraintManagement -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ConstraintManagement">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Decide -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Diagnosis -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Diagnosis"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#EnergyManagement -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#EnergyManagement"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ExternalWorld -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ExternalWorld"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#External_Information -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#External_Information">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Fire -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Fire">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Gate -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Gate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#HumanGiven_Information -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#HumanGiven_Information">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#InternalWorld -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#InternalWorld"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Internal_Information -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Internal_Information">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#KnowledgeInference -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#KnowledgeInference"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#LargePackage -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#LargePackage">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Package"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Locomotion -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Locomotion">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Manipulation -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Manipulation">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Act"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Mission -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Mission"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#MissionManagement -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#MissionManagement">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Decide"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Object -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#ObserveOrient"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Package -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Package">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Plan -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Plan"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#PlatformStabilization -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#PlatformStabilization"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Position -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Position"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Proactive -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Proactive"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Reactive -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Reactive"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Robot-Environment -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Environment"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Robot-Human -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Human"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Robot-Robot -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Robot-Robot"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#SafetyManagement -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#SafetyManagement"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Self-Manipulation -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Self-Manipulation"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#SmallPackage -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#SmallPackage">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Package"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Status -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Status"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Tank -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Tank">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Time -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Time"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Velocity -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Velocity"/>
+    
+
+
+    <!-- http://w3id.org/hsu-aut/SA_InformationModel#Weather -->
+
+    <owl:Class rdf:about="http://w3id.org/hsu-aut/SA_InformationModel#Weather"/>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#Constraint -->
+
+    <owl:Class rdf:about="&UxVMission;Constraint">
+        <rdfs:comment>Constraint of a Mission. A Constarint is something that must not be achieved</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#GeoFence -->
+
+    <owl:Class rdf:about="&UxVMission;GeoFence">
+        <rdfs:subClassOf rdf:resource="&UxVMission;Constraint"/>
+        <rdfs:comment>Geofence of a Mission describes the maximum Operating Area of the UxV. It must not be left</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#Goal -->
+
+    <owl:Class rdf:about="&UxVMission;Goal">
+        <rdfs:comment>Goal of a Mission. A Goal is something that has to be achieved</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#Mission -->
+
+    <owl:Class rdf:about="&UxVMission;Mission">
+        <rdfs:comment>Mission of an UxV. A mission Consists of Goals and Constraints</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#SafetyLandingPoint -->
+
+    <owl:Class rdf:about="&UxVMission;SafetyLandingPoint">
+        <rdfs:subClassOf rdf:resource="&UxVMission;Constraint"/>
+        <rdfs:comment>The Safety Landing Point (SLP) is the Position where the UxV goes in Case of an Emergency</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#UxV -->
+
+    <owl:Class rdf:about="&UxVMission;UxV">
+        <rdfs:comment>A UxV conducts a Mission. A UxV is an Unmanned (Air/Water/Land) Vehicle</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#MissionA -->
+
+    <owl:NamedIndividual rdf:about="&UxVMission;MissionA">
+        <rdf:type rdf:resource="&UxVMission;Mission"/>
+        <hasGeoFence rdf:resource="&UxVMission;gf1"/>
+        <hasSLP rdf:resource="&UxVMission;slp1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#gf1 -->
+
+    <owl:NamedIndividual rdf:about="&UxVMission;gf1">
+        <rdf:type rdf:resource="&UxVMission;Constraint"/>
+        <rdf:type rdf:resource="&UxVMission;GeoFence"/>
+        <isValidMission rdf:datatype="&xsd;double">77.0</isValidMission>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.hsu-ifa.de/ontologies/UxVMission#slp1 -->
+
+    <owl:NamedIndividual rdf:about="&UxVMission;slp1">
+        <rdf:type rdf:resource="&UxVMission;Constraint"/>
+        <rdf:type rdf:resource="&UxVMission;SafetyLandingPoint"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="&UxVMission;pos">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;pack">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;uxv">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;m">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;goal">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;goal1">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;goal2">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;slp">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&UxVMission;gf">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">Valid Mission GF SLP</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">A Mission is invlaid if it has no Geofence and SLP</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&UxVMission;Mission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest rdf:resource="&rdf;nil"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasGeoFenceandSLP"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;isValidMission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">Valid Mission Goal within GF</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">A Mission is invlaid if one or more Goals are not within Geofence</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;isValidMission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&UxVMission;Mission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                                        <swrl:argument1 rdf:resource="&UxVMission;goal"/>
+                                        <swrl:propertyPredicate rdf:resource="&UxVMission;isWithinMissionGeoFence"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:argument2 rdf:resource="&UxVMission;goal"/>
+                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasGoal"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">GoalPackage</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">Next Goal is Position of Package</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                <swrl:argument1 rdf:resource="&UxVMission;pack"/>
+                                                <swrl:argument2 rdf:resource="&UxVMission;pos"/>
+                                                <swrl:propertyPredicate rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#location"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="&UxVMission;UxV"/>
+                                        <swrl:argument1 rdf:resource="&UxVMission;uxv"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#SmallPackage"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;pack"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://w3id.org/hsu-aut/SA_InformationModel#Position"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;pos"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;hasSubsequentGoal"/>
+                        <swrl:argument2 rdf:resource="&UxVMission;pos"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;uxv"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">Valid Mission SLP within GF</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">A Mission is invlaid if SLP is not within Geofence</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;isValidMission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&UxVMission;Mission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasSLP"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                                <swrl:argument2 rdf:resource="&UxVMission;slp"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                                        <swrl:propertyPredicate rdf:resource="&UxVMission;isWithinMissionGeoFence"/>
+                                        <swrl:argument1 rdf:resource="&UxVMission;slp"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">Mission with GF and SLP</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">Check if Mission has Geofence and SLP</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;hasGeoFenceandSLP"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="&UxVMission;SafetyLandingPoint"/>
+                                        <swrl:argument1 rdf:resource="&UxVMission;slp"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="&UxVMission;hasSLP"/>
+                                                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                                                        <swrl:argument2 rdf:resource="&UxVMission;slp"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                <swrl:argument2 rdf:resource="&UxVMission;gf"/>
+                                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasGeoFence"/>
+                                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="&UxVMission;Mission"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&UxVMission;GeoFence"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;gf"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <rdfs:label rdf:datatype="&xsd;string">Valid Mission Achievable Goals</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">A Mission is invlaid if one or more Goals are not achievable without violating Constraints</rdfs:comment>
+        <swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&UxVMission;Mission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                                                        <swrl:argument1 rdf:resource="&UxVMission;goal2"/>
+                                                        <swrl:propertyPredicate rdf:resource="&UxVMission;isAchievableWithoutViolations"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                <swrl:argument1 rdf:resource="&UxVMission;goal1"/>
+                                                <swrl:argument2 rdf:resource="&UxVMission;goal2"/>
+                                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasSubsequentGoal"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:argument2 rdf:resource="&UxVMission;goal2"/>
+                                        <swrl:propertyPredicate rdf:resource="&UxVMission;hasGoal"/>
+                                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:argument2 rdf:resource="&UxVMission;goal1"/>
+                                <swrl:propertyPredicate rdf:resource="&UxVMission;hasGoal"/>
+                                <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">false</swrl:argument2>
+                        <swrl:propertyPredicate rdf:resource="&UxVMission;isValidMission"/>
+                        <swrl:argument1 rdf:resource="&UxVMission;m"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
