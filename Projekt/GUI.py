@@ -10,7 +10,8 @@ from PyQt5.QtCore import Qt, QStringListModel
 import Icons.BlueArrow_rc
 import Icons.LinesExplanation_rc
 from PyQt5.QtGui import QFont
-
+from owlready2 import Imp
+import re
 
 
 #Main Window
@@ -208,29 +209,29 @@ class SWRLRuleEditor(QMainWindow):
         listOfObjectProperties = return_elements(self.onto.object_properties())
         listOfDataProperties = return_elements(self.onto.data_properties())
         OntologyName = self.comboBoxOntologies.currentText()
-        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfObjectProperties , listOfDataProperties, self.rule_list)
+        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfObjectProperties, listOfDataProperties, self.rule_list)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self, OntologyName, onto, listOfClasses, listOfObjectProperties , listOfDataProperties, listOfRules):
+    def __init__(self, OntologyName, onto, listOfClasses, listOfObjectProperties, listOfDataProperties, listOfRules):
         super(SecondWindow, self).__init__()
-        uic.loadUi("Projekt\SecondWindow.ui", self)
+        uic.loadUi("Projekt/SecondWindow.ui", self)
         self.show()
         self.OntologyName = OntologyName
+        self.onto = onto  # Änderung: Die Ontologie wird hier korrekt initialisiert
         self.listOfClasses = listOfClasses
-        self.listOfProperties = listOfObjectProperties
+        self.listOfObjectProperties = listOfObjectProperties
+        self.listOfDataProperties = listOfDataProperties
         self.listOfRules = listOfRules
         self.initUI()
 
-        self.lines_if = []  #lists to save lines in layouts
-        self.lines_then = []  
-        listOfOperators = ["equal to", "less than", "greater than", "not equal to"]
- 
-        self.Label_selectedOntology.setText(OntologyName)
+        self.lines_if = []  # Lists to save lines in layouts
+        self.lines_then = []
 
-        #self.add_line_if1(listOfClasses, listOfObjectProperties)    #default
-        #self.add_line_then1(listOfClasses, listOfObjectProperties)
+        listOfOperators = ["equal to", "less than", "greater than", "not equal to"]
+
+        self.Label_selectedOntology.setText(OntologyName)
 
         self.AddLine_if1.clicked.connect(lambda: self.add_line_if1(listOfClasses, listOfObjectProperties))
         self.AddLine_if2.clicked.connect(lambda: self.add_line_if2(listOfClasses))
@@ -242,7 +243,7 @@ class SecondWindow(QMainWindow):
         self.AddLine_then4.clicked.connect(lambda: self.add_line_then4(listOfClasses, listOfOperators))
         self.RemoveLine_if.clicked.connect(self.remove_line_if)
         self.RemoveLine_then.clicked.connect(self.remove_line_then)
-        self.pushButtonAddToOnto.clicked.connect(lambda: self.add_to_onto_and_return(onto))
+        self.pushButtonAddToOnto.clicked.connect(self.add_to_onto_and_return)
  
     def initUI(self):
         # Konvertieren der Regelobjekte in eine Liste von Strings, die Regelnamen oder -beschreibungen enthalten
@@ -603,27 +604,105 @@ class SecondWindow(QMainWindow):
 
             self.verticalLayout.removeItem(line_layout)
 
-    def add_to_onto_and_return(self, onto):
-        '''#add rule to Ontologie logic missing
-        rule_str = "cloudsystem(?p) ^ hasAssignment(?p, ?T) ^ Train(?T) ^ AiSystem(?a) -> hasAssignment(?a, ?T)  " #test
-        #rule_str = "Person(?p) ^ hasAge(?p, ?age) ^ swrlb:greaterThan(?age, 18) -> Adult(?p)"
-        def parse_swr_rule(rule_str):
-            return onto.world.swr_parse(rule_str)
-    
-        # SWRL-Regel zu Ontologie hinzufügen
+    def add_to_onto_and_return(self):
+        # Regelname auslesen
+        rule_name = self.lineEditRuleName.text()
+        print(rule_name)
+        
+        # Sicherstellen, dass ein Regelname vorhanden ist
+        if not rule_name:
+            raise ValueError("Please provide a rule name.")
+        
+        # Werte auslesen
+        def get_line_values(line):
+            combo_class1 = line.itemAt(0).widget().currentText()
+            var1 = f"?{line.itemAt(1).widget().text()}"
+            combo_property = line.itemAt(3).widget().currentText()
+            combo_class2 = line.itemAt(5).widget().currentText()
+            var2 = f"?{line.itemAt(6).widget().text()}"
+            return combo_class1, var1, combo_property, combo_class2, var2
+
+        if_rules = [get_line_values(line) for line in self.lines_if]
+        then_rules = [get_line_values(line) for line in self.lines_then]
+
+        # SWRL Regel erstellen
+        if_parts = []
+        for rule in if_rules:
+            if_class, if_var, if_property, if_class2, if_var2 = rule
+            if_parts.append(f"{if_class}({if_var}), {if_property}({if_var}, {if_var2}), {if_class2}({if_var2})")
+
+        then_parts = []
+        for rule in then_rules:
+            then_class, then_var, then_property, then_class2, then_var2 = rule
+            then_parts.append(f"{then_class}({then_var}), {then_property}({then_var}, {then_var2}), {then_class2}({then_var2})")
+
+        if_statement = ", ".join(if_parts)
+        then_statement = ", ".join(then_parts)
+        rule_str = f"{if_statement} -> {then_statement}"
+
+        # Entfernen der Ontologie-Präfixe
+        rule_str = re.sub(r'Ontologien\\TestOnto1\.', '', rule_str)
+        print(f"Constructed rule: {rule_str}")
+
+        # Ensure ontology is loaded
+        if not hasattr(self, 'onto') or self.onto is None:
+            raise ValueError("Ontology is not initialized or loaded properly.")
+
         try:
-            rule = parse_swr_rule(rule_str)
-            onto.rules.append(rule)
-            print(f"SWRL-Regel hinzugefügt: {rule_str}")
+            # Verify that the ontology's world is initialized
+            if not hasattr(self.onto, 'world') or self.onto.world is None:
+                raise ValueError("Ontology's world is not initialized properly.")
+            print("test1")
+
+            # Create and add the rule
+            new_rule = Imp(namespace=self.onto)
+            if not callable(getattr(new_rule, 'set_as_rule', None)):
+                raise ValueError("set_as_rule method is not callable on the new_rule object.")
+            print("Test2")
+
+            # Set the rule string directly
+            new_rule.set_as_rule(rule_str)
+            print("regel gesetzt?")
+
+            # Append the rule name
+            if hasattr(new_rule, 'label'):
+                new_rule.label.append(rule_name)
+                print("name normal", new_rule.label)
+            else:
+                new_rule.is_a.append(rule_name)
+                print("name mit is_a")
+            print("name geaendert?")
+
+            # Debugging: Überprüfen der Attribute von self.onto
+            print("Attributes of self.onto:")
+            for attr in dir(self.onto):
+                print(f"{attr}: {getattr(self.onto, attr)}")
+
+            # Überprüfen und Initialisieren von self.onto.rules
+            if callable(self.onto.rules):
+                rules_list = list(self.onto.rules())
+            else:
+                rules_list = []
+
+            print(f"self.onto.rules: {rules_list}")
+
+            # Hinzufügen der Regel zur Ontologie
+            rules_list.append(new_rule)
+            print(f"Rule added to ontology: {new_rule}")
+
+            # Save the ontology using the native save method
+            ontology_path = "Ontologien/TestOnto1.rdf"
+            print(f"Saving ontology to: {ontology_path}")
+            self.onto.save(file=ontology_path)
+            print("ontologie gespeichert?")
+
+            print("Rule created and added to ontology:")
+            print(new_rule)
+        except AttributeError as e:
+            print(f"An error occurred while adding the rule: {e}")
         except Exception as e:
-            print(f"Fehler beim Hinzufügen der SWRL-Regel: {e}")
+            print(f"An unexpected error occurred: {e}")
 
-        # Ontologie speichern
-        onto.save()'''
-
-
-
-        self.close()
 
 
 class RuleWidgetItem(QtWidgets.QWidget):
