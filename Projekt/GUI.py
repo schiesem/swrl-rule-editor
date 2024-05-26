@@ -693,7 +693,9 @@ class SecondWindow(QMainWindow):
             # Save the ontology using the native save method
             ontology_path = "Ontologien/TestOnto1.rdf"
             print(f"Saving ontology to: {ontology_path}")
-            self.onto.save(file=ontology_path)
+            
+            # Save the ontology explicitly as RDF/XML
+            default_world.save(file=ontology_path, format="rdfxml")
             print("ontologie gespeichert?")
 
             print("Rule created and added to ontology:")
