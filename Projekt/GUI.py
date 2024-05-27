@@ -12,6 +12,7 @@ import Icons.LinesExplanation_rc
 from PyQt5.QtGui import QFont
 from owlready2 import Imp
 import re
+import gc  # Garbage collection module
 
 
 #Main Window
@@ -664,10 +665,6 @@ class SecondWindow(QMainWindow):
             # Check if all entities exist in the ontology
             def entity_exists(name):
                 entities = list(self.onto.classes()) + list(self.onto.object_properties()) + list(self.onto.data_properties())
-                # Debugging: Ausgeben aller Entitätennamen
-                print("Checking existence for entity:", name)
-                for entity in entities:
-                    print(f"Entity: {entity.name}")
                 exists = any(name == entity.name for entity in entities)
                 if not exists:
                     print(f"Entity '{name}' was not found in the ontology entities!")
@@ -702,6 +699,7 @@ class SecondWindow(QMainWindow):
             print("Test2")
 
             # Set the rule string directly
+            print(f"Setting rule: {rule_str}")
             new_rule.set_as_rule(rule_str)
             print("regel gesetzt?")
 
@@ -736,8 +734,13 @@ class SecondWindow(QMainWindow):
             print(f"Saving ontology to: {ontology_path}")
             
             # Save the ontology explicitly as RDF/XML
-            self.onto.save(format="rdfxml")
+            self.onto.save(file=ontology_path, format="rdfxml")
             print("ontologie gespeichert?")
+
+            # Garbage Collection: Speicher bereinigen
+            self.onto.world.close()  # Schließen der aktuellen Welt
+            gc.collect()  # Garbage Collection erzwingen
+            print("Ontology destroyed and garbage collected")
 
             print("Rule created and added to ontology:")
             print(new_rule)
@@ -745,11 +748,6 @@ class SecondWindow(QMainWindow):
             print(f"An error occurred while adding the rule: {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
-
-
-
-
-
 
 
 
