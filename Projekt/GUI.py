@@ -59,18 +59,19 @@ class SWRLRuleEditor(QMainWindow):
         item = QtWidgets.QListWidgetItem(item_text)
         self.ruleListWidget.addItem(item)    
 
-    def ontologySelected(self):    
+    def ontologySelected(self):
         selected_text = self.comboBoxOntologies.currentText()
-        print(selected_text)                                                        #testing
-  
-        #selection of ontology
+        print(selected_text)  # testing
+
+            # Pfad zur ausgewählten Ontologie
         file_name = f"{selected_text}"
         folder_path = r"Ontologien"
         file_path_save = os.path.join(folder_path, file_name)
-        onto = get_ontology("file://" + file_path_save).load()
-        print("The ontology has been loaded")                                       #testing
-        
-        self.onto = onto
+        self.ontology_path = file_path_save
+
+        # Laden der Ontologie
+        self.onto = get_ontology(f"file://{self.ontology_path}").load()
+        print("The ontology has been loaded")
 
         # Regeln des ListWidgets löschen und Liste leeren
         self.rule_listWidget.clear()
@@ -116,7 +117,7 @@ class SWRLRuleEditor(QMainWindow):
         for rule in self.rule_list:
             is_enabled = rule.isRuleEnabled.first() if rule.isRuleEnabled else False
             widget_item = QtWidgets.QListWidgetItem(self.rule_listWidget)
-            item_widget = RuleWidgetItem(rule, is_enabled)
+            item_widget = RuleWidgetItem(rule, is_enabled, self.ontology_path)  # Übergabe des Pfads zur Ontologie
 
             if self.rule_lineEdit.text().lower() in rule.label.first().lower():
                 item_widget.setStyleSheet("background-color: lightblue;")
@@ -209,17 +210,18 @@ class SWRLRuleEditor(QMainWindow):
         listOfObjectProperties = return_elements(self.onto.object_properties())
         listOfDataProperties = return_elements(self.onto.data_properties())
         OntologyName = self.comboBoxOntologies.currentText()
-        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfObjectProperties, listOfDataProperties, self.rule_list)
+        self.second_window = SecondWindow(OntologyName, self.onto, listOfClasses, listOfObjectProperties, listOfDataProperties, self.rule_list, self.ontology_path)
         self.second_window.show()
 
 #Rule Editor Window
 class SecondWindow(QMainWindow):
-    def __init__(self, OntologyName, onto, listOfClasses, listOfObjectProperties, listOfDataProperties, listOfRules):
+    def __init__(self, OntologyName, onto, listOfClasses, listOfObjectProperties, listOfDataProperties, listOfRules, ontology_path):
         super(SecondWindow, self).__init__()
         uic.loadUi("Projekt/SecondWindow.ui", self)
         self.show()
         self.OntologyName = OntologyName
         self.onto = onto  # Änderung: Die Ontologie wird hier korrekt initialisiert
+        self.ontology_path = ontology_path  # Speichern des Pfads zur Ontologie
         self.listOfClasses = listOfClasses
         self.listOfObjectProperties = listOfObjectProperties
         self.listOfDataProperties = listOfDataProperties
@@ -607,7 +609,7 @@ class SecondWindow(QMainWindow):
     def add_to_onto_and_return(self):
         # Regelname auslesen
         rule_name = self.lineEditRuleName.text()
-        print(rule_name)
+        print(f"Rule name: {rule_name}")
         
         # Sicherstellen, dass ein Regelname vorhanden ist
         if not rule_name:
@@ -640,19 +642,58 @@ class SecondWindow(QMainWindow):
         then_statement = ", ".join(then_parts)
         rule_str = f"{if_statement} -> {then_statement}"
 
-        # Entfernen der Ontologie-Präfixe
-        rule_str = re.sub(r'Ontologien\\TestOnto1\.', '', rule_str)
+        # Dynamisch den Präfix der Ontologie entfernen
+        ontology_base_iri = self.onto.base_iri
+        ontology_prefix = re.escape(ontology_base_iri)
+        rule_str = re.sub(f'{ontology_prefix}', '', rule_str)
         print(f"Constructed rule: {rule_str}")
 
         # Ensure ontology is loaded
         if not hasattr(self, 'onto') or self.onto is None:
             raise ValueError("Ontology is not initialized or loaded properly.")
 
+        # Debugging: Überprüfen des vollständigen Pfads der geladenen Ontologie
+        print(f"Loaded ontology path: {self.ontology_path}")
+
         try:
             # Verify that the ontology's world is initialized
             if not hasattr(self.onto, 'world') or self.onto.world is None:
                 raise ValueError("Ontology's world is not initialized properly.")
             print("test1")
+
+            # Check if all entities exist in the ontology
+            def entity_exists(name):
+                entities = list(self.onto.classes()) + list(self.onto.object_properties()) + list(self.onto.data_properties())
+                # Debugging: Ausgeben aller Entitätennamen
+                print("Checking existence for entity:", name)
+                for entity in entities:
+                    print(f"Entity: {entity.name}")
+                exists = any(name == entity.name for entity in entities)
+                if not exists:
+                    print(f"Entity '{name}' was not found in the ontology entities!")
+                return exists
+
+            rule_entities = set(re.findall(r'\b[A-Z][a-zA-Z0-9_]*\b', rule_str))  # Extract entities starting with uppercase
+            print(f"Rule entities: {rule_entities}")
+            
+            # Debugging: List all classes, object properties, and data properties in the ontology
+            print("Classes in ontology:")
+            for cls in self.onto.classes():
+                print(f"- {cls.name}")
+            
+            print("Object properties in ontology:")
+            for obj_prop in self.onto.object_properties():
+                print(f"- {obj_prop.name}")
+            
+            print("Data properties in ontology:")
+            for data_prop in self.onto.data_properties():
+                print(f"- {data_prop.name}")
+            
+            for entity in rule_entities:
+                if not entity_exists(entity):
+                    raise ValueError(f"Cannot find entity '{entity}' in the ontology!")
+
+            print("All entities exist in the ontology")
 
             # Create and add the rule
             new_rule = Imp(namespace=self.onto)
@@ -691,11 +732,11 @@ class SecondWindow(QMainWindow):
             print(f"Rule added to ontology: {new_rule}")
 
             # Save the ontology using the native save method
-            ontology_path = "Ontologien/TestOnto1.rdf"
+            ontology_path = self.ontology_path  # Verwenden des dynamischen Pfads
             print(f"Saving ontology to: {ontology_path}")
             
             # Save the ontology explicitly as RDF/XML
-            default_world.save(file=ontology_path, format="rdfxml")
+            self.onto.save(format="rdfxml")
             print("ontologie gespeichert?")
 
             print("Rule created and added to ontology:")
@@ -707,12 +748,19 @@ class SecondWindow(QMainWindow):
 
 
 
+
+
+
+
+
+
 class RuleWidgetItem(QtWidgets.QWidget):
-    def __init__(self, rule, is_enabled):
+    def __init__(self, rule, is_enabled, ontology_path):
         super().__init__()
         layout = QtWidgets.QHBoxLayout()
         self.setLayout(layout)
         self.rule = rule
+        self.ontology_path = ontology_path  # Speichern des Pfads zur Ontologie
         self.checkbox = QtWidgets.QCheckBox()
         self.checkbox.setChecked(is_enabled)
         self.checkbox.stateChanged.connect(self.toggle_rule)
@@ -723,12 +771,13 @@ class RuleWidgetItem(QtWidgets.QWidget):
     def toggle_rule(self, state):
         new_state = state == QtCore.Qt.Checked
         self.rule.isRuleEnabled = [new_state]
-        # Speichere die Ontologie in einer lokalen Datei, statt URL verwenden
+        # Speichern Sie die Ontologie unter Verwendung des übergebenen Pfads
         self.save_ontology(self.rule.namespace.ontology)
 
     def save_ontology(self, ontology):
-        # Stellen Sie sicher, dass der Pfad existiert und gültig ist
-        save_path = "Ontologien\ghibli.rdf"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrer Ontologie-Datei
+        # Verwenden Sie den gespeicherten Pfad
+        save_path = self.ontology_path
+        print(f"Saving ontology to: {save_path}")
         ontology.save(file=save_path)
 
 
